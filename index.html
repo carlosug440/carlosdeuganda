@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Carlos | Portfolio</title>
+<title>Carlos | Web Developer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -14,13 +16,14 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:'Poppins',sans-serif;
 scroll-behavior:smooth;
 }
 
 body{
 background:#0f172a;
 color:white;
+line-height:1.6;
 }
 
 /* NAVBAR */
@@ -29,90 +32,124 @@ nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 30px;
+padding:18px 8%;
 background:#020617;
 position:sticky;
 top:0;
 z-index:1000;
 }
 
+nav h2{
+color:#38bdf8;
+}
+
 nav ul{
 display:flex;
-gap:20px;
+gap:30px;
 list-style:none;
 }
 
 nav a{
-color:white;
 text-decoration:none;
+color:white;
+font-weight:500;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#38bdf8;
 }
 
 /* HERO */
 
 .hero{
 display:flex;
-flex-wrap:wrap;
 align-items:center;
 justify-content:center;
-padding:80px 20px;
-gap:40px;
+gap:80px;
+padding:100px 8%;
+flex-wrap:wrap;
 }
 
 .hero-text{
-max-width:500px;
+max-width:520px;
 }
 
 .hero-text h1{
-font-size:40px;
+font-size:48px;
+margin-bottom:10px;
 }
 
 .hero-text span{
 color:#38bdf8;
 }
 
+.hero-text p{
+margin-top:10px;
+color:#cbd5f5;
+}
+
 .btn{
-margin-top:20px;
-padding:10px 25px;
+margin-top:25px;
+padding:12px 30px;
 background:#38bdf8;
 border:none;
+border-radius:5px;
 cursor:pointer;
+font-weight:500;
+}
+
+.btn:hover{
+background:#0ea5e9;
 }
 
 /* PROFILE IMAGE */
 
 .profile{
-width:250px;
-height:250px;
+width:260px;
+height:260px;
 border-radius:50%;
 overflow:hidden;
-border:5px solid #38bdf8;
+border:6px solid #38bdf8;
+box-shadow:0 0 25px rgba(56,189,248,0.4);
 }
 
 .profile img{
 width:100%;
+height:100%;
 object-fit:cover;
 }
 
 /* SECTIONS */
 
 section{
-padding:70px 20px;
+padding:80px 8%;
 text-align:center;
+}
+
+section h2{
+font-size:32px;
+margin-bottom:30px;
 }
 
 /* SKILLS */
 
+.skills{
+max-width:600px;
+margin:auto;
+}
+
 .skill{
-margin:15px auto;
-width:80%;
+margin:20px 0;
 text-align:left;
 }
 
 .bar{
-height:10px;
 background:#1e293b;
-border-radius:5px;
+height:10px;
+border-radius:6px;
 overflow:hidden;
+margin-top:5px;
 }
 
 .progress{
@@ -124,25 +161,25 @@ background:#38bdf8;
 
 .projects{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
 margin-top:30px;
 }
 
 .card{
 background:#1e293b;
-padding:20px;
-border-radius:10px;
+padding:25px;
+border-radius:12px;
 transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-10px);
+transform:translateY(-8px);
 }
 
-/* CONTACT FORM */
+/* CONTACT */
 
-.contact-form{
+.contact{
 max-width:500px;
 margin:auto;
 }
@@ -151,14 +188,17 @@ input,textarea{
 width:100%;
 padding:12px;
 margin:10px 0;
+border-radius:6px;
 border:none;
-border-radius:5px;
 }
+
+/* FOOTER */
 
 footer{
 text-align:center;
-padding:20px;
+padding:25px;
 background:#020617;
+margin-top:50px;
 }
 
 /* FLOATING BUTTONS */
@@ -174,9 +214,10 @@ border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:25px;
+font-size:24px;
 color:white;
 text-decoration:none;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
 .phone{
@@ -193,19 +234,26 @@ justify-content:center;
 font-size:22px;
 color:white;
 text-decoration:none;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
 @media(max-width:768px){
 
 .hero{
 flex-direction:column;
 text-align:center;
+gap:40px;
 }
 
 .hero-text h1{
-font-size:32px;
+font-size:36px;
+}
+
+nav ul{
+gap:15px;
+font-size:14px;
 }
 
 }
@@ -214,8 +262,9 @@ font-size:32px;
 
 </head>
 
-
 <body>
+
+<!-- NAVBAR -->
 
 <nav>
 
@@ -237,20 +286,19 @@ font-size:32px;
 
 <div class="hero-text">
 
-<h1>Hello I'm <span>Carlos De Uganda</span></h1>
+<h1>Hello, I'm <span>Carlos</span></h1>
 
 <p>
-Web Developer, Graphic Designer, Email Marketer and Youth Empowerment Advocate from Uganda.
+Web Developer, Graphic Designer, Email Marketer and Youth Empowerment Advocate from Uganda. I build modern digital solutions that help people and businesses grow online.
 </p>
 
 <button class="btn" onclick="scrollProjects()">View My Work</button>
 
 </div>
 
-
 <div class="profile">
 
-<img src="images/IMG_20240830_162436_3-1.jpg">
+<img src="profile.jpg">
 
 </div>
 
@@ -264,9 +312,7 @@ Web Developer, Graphic Designer, Email Marketer and Youth Empowerment Advocate f
 <h2>About Me</h2>
 
 <p>
-I am Carlos, a passionate web developer from Uganda. I build modern
-websites using HTML, CSS and JavaScript. I also help businesses grow
-through graphic design, social media management and email marketing.
+I am passionate about technology and empowering young people with digital skills. I specialize in building responsive websites using HTML, CSS and JavaScript, and I help businesses grow through graphic design and digital marketing.
 </p>
 
 </section>
@@ -278,28 +324,38 @@ through graphic design, social media management and email marketing.
 
 <h2>My Skills</h2>
 
-<div class="skill">HTML
+<div class="skills">
+
+<div class="skill">
+HTML
 <div class="bar"><div class="progress" style="width:95%"></div></div>
 </div>
 
-<div class="skill">CSS
+<div class="skill">
+CSS
 <div class="bar"><div class="progress" style="width:90%"></div></div>
 </div>
 
-<div class="skill">JavaScript
+<div class="skill">
+JavaScript
 <div class="bar"><div class="progress" style="width:85%"></div></div>
 </div>
 
-<div class="skill">Graphic Design
+<div class="skill">
+Graphic Design
 <div class="bar"><div class="progress" style="width:80%"></div></div>
 </div>
 
-<div class="skill">Email Marketing
+<div class="skill">
+Email Marketing
 <div class="bar"><div class="progress" style="width:75%"></div></div>
 </div>
 
-<div class="skill">Social Media Management
+<div class="skill">
+Social Media Management
 <div class="bar"><div class="progress" style="width:85%"></div></div>
+</div>
+
 </div>
 
 </section>
@@ -315,17 +371,17 @@ through graphic design, social media management and email marketing.
 
 <div class="card">
 <h3>Portfolio Website</h3>
-<p>Personal responsive portfolio website.</p>
+<p>Modern responsive portfolio website.</p>
 </div>
 
 <div class="card">
 <h3>JavaScript Calculator</h3>
-<p>Responsive calculator built with JS.</p>
+<p>Interactive calculator created with JavaScript.</p>
 </div>
 
 <div class="card">
 <h3>Tetris Game</h3>
-<p>Browser game created with JavaScript.</p>
+<p>Browser game built using JavaScript.</p>
 </div>
 
 </div>
@@ -339,16 +395,13 @@ through graphic design, social media management and email marketing.
 
 <h2>Contact Me</h2>
 
-<form class="contact-form"
-action="mailto:your@email.com"
-method="post"
-enctype="text/plain">
+<form class="contact" action="mailto:your@email.com" method="post" enctype="text/plain">
 
-<input type="text" name="name" placeholder="Your Name" required>
+<input type="text" placeholder="Your Name" required>
 
-<input type="email" name="email" placeholder="Your Email" required>
+<input type="email" placeholder="Your Email" required>
 
-<textarea name="message" rows="5" placeholder="Your Message"></textarea>
+<textarea rows="5" placeholder="Message"></textarea>
 
 <button class="btn">Send Message</button>
 
@@ -359,16 +412,16 @@ enctype="text/plain">
 
 <footer>
 
-<p>© 2026 Carlos De Uganda</p>
+<p>© 2026 Carlos | Uganda</p>
 
 </footer>
 
 
 <!-- FLOATING BUTTONS -->
 
-<a class="whatsapp" href="https://wa.me/256707071929">W</a>
+<a class="whatsapp" href="https://wa.me/256XXXXXXXXX">W</a>
 
-<a class="phone" href="tel:+256707071929">📞</a>
+<a class="phone" href="tel:+256XXXXXXXXX">📞</a>
 
 
 <script>
@@ -382,4 +435,4 @@ behavior:"smooth"
 </script>
 
 </body>
-                   </html>
+  </html>
