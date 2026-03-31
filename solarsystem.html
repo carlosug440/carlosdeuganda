@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <meta charset="UTF-8">
@@ -13,38 +14,53 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Arial;
 }
 
 body{
 background:black;
 color:white;
-font-family:Arial;
 overflow:hidden;
 }
+
+/* STAR BACKGROUND */
+
+body::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background-image:
+radial-gradient(white 1px, transparent 1px);
+background-size:40px 40px;
+opacity:.4;
+}
+
+/* LAYOUT */
 
 .container{
 display:flex;
 height:100vh;
 }
 
-/* SOLAR SYSTEM AREA */
+/* SOLAR AREA */
 
-.solar-system{
+.space{
 flex:2;
-position:relative;
 display:flex;
 align-items:center;
 justify-content:center;
+position:relative;
 }
 
 /* SUN */
 
 .sun{
-width:80px;
-height:80px;
-background:orange;
+width:100px;
+height:100px;
+background:radial-gradient(circle, #ffd000, #ff8c00);
 border-radius:50%;
-box-shadow:0 0 40px orange;
+box-shadow:0 0 60px orange;
 position:absolute;
 }
 
@@ -65,38 +81,92 @@ to{transform:rotate(360deg);}
 /* PLANETS */
 
 .planet{
-width:18px;
-height:18px;
-border-radius:50%;
 position:absolute;
-top:-9px;
+top:-12px;
 left:50%;
 transform:translateX(-50%);
+border-radius:50%;
 cursor:pointer;
+transition:.3s;
+}
+
+.planet:hover{
+transform:translateX(-50%) scale(1.5);
 }
 
 /* PLANET COLORS */
 
-.mercury{background:gray;}
-.venus{background:#d4a373;}
-.earth{background:#3a86ff;}
-.mars{background:#e63946;}
-.jupiter{background:#f4a261;}
-.saturn{background:#e9c46a;}
-.uranus{background:#90dbf4;}
-.neptune{background:#4361ee;}
+.mercury{
+width:14px;
+height:14px;
+background:gray;
+}
+
+.venus{
+width:20px;
+height:20px;
+background:#d4a373;
+}
+
+.earth{
+width:22px;
+height:22px;
+background:linear-gradient(blue,green);
+}
+
+.mars{
+width:18px;
+height:18px;
+background:#c1121f;
+}
+
+.jupiter{
+width:40px;
+height:40px;
+background:#e0a458;
+}
+
+.saturn{
+width:34px;
+height:34px;
+background:#e9c46a;
+position:relative;
+}
+
+.saturn::after{
+content:"";
+position:absolute;
+width:60px;
+height:12px;
+border:2px solid #e9c46a;
+border-radius:50%;
+top:10px;
+left:-13px;
+}
+
+.uranus{
+width:26px;
+height:26px;
+background:#90dbf4;
+}
+
+.neptune{
+width:26px;
+height:26px;
+background:#4361ee;
+}
 
 /* INFO PANEL */
 
-.info{
+.panel{
 flex:1;
 background:#020617;
-padding:20px;
+padding:25px;
 overflow:auto;
 }
 
-.info h2{
-margin-bottom:10px;
+.panel h1{
+margin-bottom:15px;
 }
 
 </style>
@@ -107,95 +177,94 @@ margin-bottom:10px;
 
 <div class="container">
 
-<div class="solar-system">
+<div class="space">
 
 <div class="sun"></div>
 
-<!-- Mercury -->
-<div class="orbit" style="width:120px;height:120px;animation-duration:5s;">
-<div class="planet mercury" onclick="showPlanet('Mercury')"></div>
+<!-- MERCURY -->
+<div class="orbit" style="width:140px;height:140px;animation-duration:6s;">
+<div class="planet mercury" onclick="planet('Mercury')"></div>
 </div>
 
-<!-- Venus -->
-<div class="orbit" style="width:170px;height:170px;animation-duration:8s;">
-<div class="planet venus" onclick="showPlanet('Venus')"></div>
+<!-- VENUS -->
+<div class="orbit" style="width:200px;height:200px;animation-duration:10s;">
+<div class="planet venus" onclick="planet('Venus')"></div>
 </div>
 
-<!-- Earth -->
-<div class="orbit" style="width:220px;height:220px;animation-duration:10s;">
-<div class="planet earth" onclick="showPlanet('Earth')"></div>
+<!-- EARTH -->
+<div class="orbit" style="width:260px;height:260px;animation-duration:14s;">
+<div class="planet earth" onclick="planet('Earth')"></div>
 </div>
 
-<!-- Mars -->
-<div class="orbit" style="width:270px;height:270px;animation-duration:14s;">
-<div class="planet mars" onclick="showPlanet('Mars')"></div>
+<!-- MARS -->
+<div class="orbit" style="width:320px;height:320px;animation-duration:18s;">
+<div class="planet mars" onclick="planet('Mars')"></div>
 </div>
 
-<!-- Jupiter -->
-<div class="orbit" style="width:340px;height:340px;animation-duration:20s;">
-<div class="planet jupiter" onclick="showPlanet('Jupiter')"></div>
+<!-- JUPITER -->
+<div class="orbit" style="width:420px;height:420px;animation-duration:30s;">
+<div class="planet jupiter" onclick="planet('Jupiter')"></div>
 </div>
 
-<!-- Saturn -->
-<div class="orbit" style="width:410px;height:410px;animation-duration:25s;">
-<div class="planet saturn" onclick="showPlanet('Saturn')"></div>
+<!-- SATURN -->
+<div class="orbit" style="width:520px;height:520px;animation-duration:40s;">
+<div class="planet saturn" onclick="planet('Saturn')"></div>
 </div>
 
-<!-- Uranus -->
-<div class="orbit" style="width:480px;height:480px;animation-duration:30s;">
-<div class="planet uranus" onclick="showPlanet('Uranus')"></div>
+<!-- URANUS -->
+<div class="orbit" style="width:620px;height:620px;animation-duration:50s;">
+<div class="planet uranus" onclick="planet('Uranus')"></div>
 </div>
 
-<!-- Neptune -->
-<div class="orbit" style="width:550px;height:550px;animation-duration:35s;">
-<div class="planet neptune" onclick="showPlanet('Neptune')"></div>
+<!-- NEPTUNE -->
+<div class="orbit" style="width:720px;height:720px;animation-duration:60s;">
+<div class="planet neptune" onclick="planet('Neptune')"></div>
 </div>
 
 </div>
 
 
-<div class="info">
+<div class="panel">
 
-<h2>Solar System</h2>
+<h1>Solar System Explorer</h1>
 
-<p id="planetInfo">
-Click a planet to see information.
+<p id="info">
+Click a planet to learn about it.
 </p>
 
 </div>
 
 </div>
 
-
 <script>
 
-const data={
+const planets={
 
-Mercury:"Mercury is the closest planet to the Sun and the smallest planet in the solar system.",
+Mercury:"Mercury is the closest planet to the Sun and has extremely hot days and freezing nights.",
 
-Venus:"Venus is the hottest planet because of its thick atmosphere.",
+Venus:"Venus is the hottest planet with thick clouds of sulfuric acid.",
 
-Earth:"Earth is the only planet known to support life.",
+Earth:"Earth is the only planet known to support life and has one moon.",
 
-Mars:"Mars is called the Red Planet and may have had water in the past.",
+Mars:"Mars is the Red Planet and scientists believe water once existed there.",
 
-Jupiter:"Jupiter is the largest planet and has a giant storm called the Great Red Spot.",
+Jupiter:"Jupiter is the largest planet and has over 90 moons.",
 
-Saturn:"Saturn is famous for its beautiful ring system.",
+Saturn:"Saturn is famous for its massive ring system made of ice and rock.",
 
-Uranus:"Uranus rotates on its side and appears blue due to methane.",
+Uranus:"Uranus rotates on its side and appears blue due to methane gas.",
 
-Neptune:"Neptune is the farthest planet and has extremely strong winds."
+Neptune:"Neptune is the windiest planet with storms faster than hurricanes."
 
-};
+}
 
-function showPlanet(name){
+function planet(name){
 
-document.getElementById("planetInfo").innerText=data[name];
+document.getElementById("info").innerText=planets[name]
 
 }
 
 </script>
 
 </body>
-</html>
+  </html>
