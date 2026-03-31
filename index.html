@@ -1,106 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Carlos | Web Developer</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-scroll-behavior:smooth;
-  text-decoration: none;
-}
-
-body{
-background:#0f172a;
-color:white;
-line-height:1.6;
-}
-
-/* NAVBAR */
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 8%;
-background:#020617;
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-nav h2{
-color:#38bdf8;
-}
-
-nav ul{
-display:flex;
-gap:30px;
-list-style:none;
-}
-
-nav a{
-text-decoration:none;
-color:white;
-font-weight:500;
-transition:0.3s;
-}
-
-nav a:hover{
-color:#38bdf8;
-}
-
-/* HERO */
-
-.hero{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:80px;
-padding:100px 8%;
-flex-wrap:wrap;
-}
-
-.hero-text{
-max-width:520px;
-}
-
-.hero-text h1{
-font-size:48px;
-margin-bottom:10px;
-}
-
-.hero-text span{
-color:#38bdf8;
-}
-
-.hero-text p{
-margin-top:10px;
-color:#cbd5f5;
-}
-
-.btn{
-margin-top:25px;
-padding:12px 30px;
-background:#38bdf8;
-border:none;
-border-radius:5px;
-cursor:pointer;
-font-weight:500;
-}
-
-.btn:hover{
 background:#0ea5e9;
 }
 
@@ -109,357 +6,801 @@ background:#0ea5e9;
 .profile{
 width:260px;
 height:260px;
-border-radius:50%;
-overflow:hidden;
-border:6px solid #38bdf8;
-box-shadow:0 0 25px rgba(56,189,248,0.4);
+border-radiu<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlos | Web Developer & Digital Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+    text-decoration: none;
 }
 
-.profile img{
-width:90%;
-object-fit:cover;
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: #f1f5f9;
+    line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+    background: #38bdf8;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #0ea5e9;
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    background: rgba(2, 6, 23, 0.95);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+nav h2 {
+    color: #38bdf8;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: #f1f5f9;
+    font-weight: 500;
+    transition: 0.3s;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #38bdf8;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+/* HERO SECTION */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    padding: 100px 8%;
+    flex-wrap: wrap;
+    min-height: 90vh;
+}
+
+.hero-text {
+    max-width: 550px;
+}
+
+.hero-text h1 {
+    font-size: 56px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-text span {
+    color: #38bdf8;
+    position: relative;
+    display: inline-block;
+}
+
+.hero-text span::before {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: rgba(56, 189, 248, 0.3);
+    z-index: -1;
+}
+
+.hero-text p {
+    margin-top: 15px;
+    color: #cbd5e6;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.btn {
+    margin-top: 30px;
+    padding: 14px 38px;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+}
+
+/* PROFILE IMAGE */
+.profile {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #38bdf8;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.profile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.7);
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* SECTIONS */
-
-section{
-padding:80px 8%;
-text-align:center;
+section {
+    padding: 80px 8%;
+    text-align: center;
 }
 
-section h2{
-font-size:32px;
-margin-bottom:30px;
+section h2 {
+    font-size: 42px;
+    margin-bottom: 50px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, #38bdf8);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    display: inline-block;
 }
 
-/* SKILLS */
-
-.skills{
-max-width:600px;
-margin:auto;
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    border-radius: 2px;
 }
 
-.skill{
-margin:20px 0;
-text-align:left;
+/* ABOUT SECTION */
+#about {
+    background: rgba(30, 41, 59, 0.3);
+    border-radius: 30px;
+    margin: 20px 8%;
+    padding: 60px;
 }
 
-.bar{
-background:#1e293b;
-height:10px;
-border-radius:6px;
-overflow:hidden;
-margin-top:5px;
+#about p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: #cbd5e6;
+    line-height: 1.8;
 }
 
-.progress{
-height:10px;
-background:#38bdf8;
+/* SKILLS SECTION - IMPROVED */
+.skills-container {
+    max-width: 800px;
+    margin: auto;
 }
 
-/* PROJECTS */
-
-.projects{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-margin-top:30px;
+.skill {
+    margin: 30px 0;
+    text-align: left;
 }
 
-.card{
-background:#1e293b;
-padding:25px;
-border-radius:12px;
-transition:0.3s;
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
-.card:hover{
-transform:translateY(-8px);
+.skill-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* CONTACT */
-
-.contact{
-max-width:500px;
-margin:auto;
+.skill-name i {
+    color: #38bdf8;
+    font-size: 20px;
 }
 
-input,textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:6px;
-border:none;
+.bar {
+    background: #1e293b;
+    height: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.progress {
+    height: 12px;
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    border-radius: 10px;
+    width: 0%;
+    animation: fillBar 1.5s ease-out forwards;
+}
+
+@keyframes fillBar {
+    from { width: 0; }
+    to { width: var(--width); }
+}
+
+/* PROJECTS CARDS - IMPROVED COLORS */
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+    backdrop-filter: blur(10px);
+    padding: 30px 25px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    text-align: center;
+    cursor: pointer;
+    color: #f1f5f9;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #38bdf8;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(56, 189, 248, 0.2);
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.95));
+}
+
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.card p {
+    color: #94a3b8;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.card i {
+    font-size: 48px;
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+.projects a {
+    text-decoration: none;
+}
+
+/* CONTACT SECTION */
+.contact-container {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(30, 41, 59, 0.4);
+    padding: 40px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.input-group {
+    position: relative;
+    margin: 20px 0;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: rgba(15, 23, 42, 0.8);
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    background: rgba(15, 23, 42, 0.95);
+}
+
+input::placeholder, textarea::placeholder {
+    color: #64748b;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-btn {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 18px;
 }
 
 /* FOOTER */
+footer {
+    text-align: center;
+    padding: 35px;
+    background: rgba(2, 6, 23, 0.9);
+    margin-top: 50px;
+    border-top: 1px solid rgba(56, 189, 248, 0.2);
+}
 
-footer{
-text-align:center;
-padding:25px;
-background:#020617;
-margin-top:50px;
+footer p {
+    color: #94a3b8;
+}
+
+footer p i {
+    color: #38bdf8;
+    margin: 0 5px;
 }
 
 /* FLOATING BUTTONS */
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-width:55px;
-height:55px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-color:white;
-text-decoration:none;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
+.whatsapp {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+    transition: 0.3s;
+    z-index: 999;
 }
 
-.phone{
-position:fixed;
-bottom:90px;
-right:20px;
-background:#38bdf8;
-width:55px;
-height:55px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-color:white;
-text-decoration:none;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
+.whatsapp:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+}
+
+.phone {
+    position: fixed;
+    bottom: 95px;
+    right: 25px;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(56, 189, 248, 0.4);
+    transition: 0.3s;
+    z-index: 999;
+}
+
+.phone:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.6);
 }
 
 /* RESPONSIVE */
-
-@media(max-width:768px){
-
-.hero{
-flex-direction:column;
-text-align:center;
-gap:40px;
+@media(max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 5%;
+    }
+    
+    nav ul {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+        padding: 60px 5%;
+    }
+    
+    .hero-text h1 {
+        font-size: 36px;
+    }
+    
+    section h2 {
+        font-size: 32px;
+    }
+    
+    #about {
+        margin: 20px 5%;
+        padding: 40px 25px;
+    }
+    
+    .contact-container {
+        padding: 30px 20px;
+    }
+    
+    .projects {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile {
+        width: 220px;
+        height: 220px;
+    }
+    
+    .whatsapp, .phone {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+    
+    .phone {
+        bottom: 85px;
+    }
 }
 
-.hero-text h1{
-font-size:36px;
+/* Success Message Styling */
+.success-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transform: translateX(400px);
+    transition: 0.3s;
+    z-index: 2000;
+    font-weight: 500;
 }
 
-nav ul{
-gap:15px;
-font-size:14px;
+.success-message.show {
+    transform: translateX(0);
 }
 
+/* Animation for cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+.card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: calc(var(--order, 0) * 0.1s);
+    opacity: 0;
+}
 </style>
-
 </head>
-
 <body>
 
 <!-- NAVBAR -->
-
 <nav>
-
-<h2>Carlos</h2>
-
-<ul>
-<li><a href="#about">About</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-
+    <h2><i class="fas fa-code" style="color: #38bdf8; margin-right: 8px;"></i>Carlos</h2>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
 </nav>
 
-
 <!-- HERO -->
-
 <div class="hero">
-
-<div class="hero-text">
-
-<h1>Hello, I'm <span>Carlos</span></h1>
-
-<p>
-Web Developer, Graphic Designer, Email Marketer and Youth Empowerment Advocate from Uganda. I build modern digital solutions that help people and businesses grow online.
-</p>
-
-<button class="btn" onclick="scrollProjects()">View My Work</button>
-
+    <div class="hero-text">
+        <h1>Hello, I'm <span>Carlos</span></h1>
+        <p><i class="fas fa-map-marker-alt" style="color: #38bdf8;"></i> Web Developer | Graphic Designer | Email Marketer | Youth Empowerment Advocate from Uganda</p>
+        <p>I build modern digital solutions that help people and businesses grow online. Let's create something amazing together!</p>
+        <button class="btn" onclick="scrollProjects()"><i class="fas fa-arrow-down"></i> View My Work</button>
+    </div>
+    <div class="profile">
+        <img src="images/IMG_20240830_162436_3-1.jpg" alt="Carlos - Web Developer">
+    </div>
 </div>
-
-<div class="profile">
-
-<img src="images/IMG_20240830_162436_3-1.jpg">
-
-</div>
-
-</div>
-
 
 <!-- ABOUT -->
-
 <section id="about">
-
-<h2>About Me</h2>
-
-<p>
-I am passionate about technology and empowering young people with digital skills. I specialize in building responsive websites using HTML, CSS and JavaScript, and I help businesses grow through graphic design and digital marketing.
-</p>
-
+    <h2>About Me</h2>
+    <p>I'm a passionate technologist and digital creator dedicated to empowering young people with essential digital skills. With expertise in web development, graphic design, and digital marketing, I help businesses establish strong online presence. My mission is to bridge the digital divide by providing modern, responsive, and user-friendly solutions that drive growth and success in the digital age.</p>
 </section>
-
 
 <!-- SKILLS -->
-
 <section id="skills">
-
-<h2>My Skills</h2>
-
-<div class="skills">
-
-<div class="skill">
-HTML
-<div class="bar"><div class="progress" style="width:100%"></div></div>
-</div>
-
-<div class="skill">
-CSS
-<div class="bar"><div class="progress" style="width:100%"></div></div>
-</div>
-
-<div class="skill">
-JavaScript
-<div class="bar"><div class="progress" style="width:100%"></div></div>
-</div>
-
-<div class="skill">
-Graphic Design
-<div class="bar"><div class="progress" style="width:100%"></div></div>
-</div>
-
-<div class="skill">
-Email Marketing
-<div class="bar"><div class="progress" style="width:100%"></div></div>
-</div>
-
-<div class="skill">
-Social Media Management
-<div class="bar"><div class="progress" style="width:100%"></div></div>
-</div>
-
-</div>
-
+    <h2>My Skills</h2>
+    <div class="skills-container">
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name"><i class="fab fa-html5"></i> HTML5</span>
+                <span>100%</span>
+            </div>
+            <div class="bar"><div class="progress" style="--width:100%"></div></div>
+        </div>
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name"><i class="fab fa-css3-alt"></i> CSS3</span>
+                <span>100%</span>
+            </div>
+            <div class="bar"><div class="progress" style="--width:100%"></div></div>
+        </div>
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name"><i class="fab fa-js"></i> JavaScript</span>
+                <span>100%</span>
+            </div>
+            <div class="bar"><div class="progress" style="--width:100%"></div></div>
+        </div>
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name"><i class="fas fa-palette"></i> Graphic Design</span>
+                <span>100%</span>
+            </div>
+            <div class="bar"><div class="progress" style="--width:100%"></div></div>
+        </div>
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name"><i class="fas fa-envelope"></i> Email Marketing</span>
+                <span>100%</span>
+            </div>
+            <div class="bar"><div class="progress" style="--width:100%"></div></div>
+        </div>
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name"><i class="fas fa-chart-line"></i> Social Media Management</span>
+                <span>100%</span>
+            </div>
+            <div class="bar"><div class="progress" style="--width:100%"></div></div>
+        </div>
+    </div>
 </section>
 
-
-<!-- PROJECTS -->
-
+<!-- PROJECTS - IMPROVED CARDS WITH BETTER COLORS -->
 <section id="projects">
-
-<h2>Projects</h2>
-
-<div class="projects">
-<a href="spending-tracker.html">
-<div class="card">
-<h3>Spending Tracker</h3>
-<p>Spending Tracker that exports data into a spreadsheet</p>
-</div>
-</a>
-<a href="calculator.html">
-<div class="card">
-<h3>JavaScript Calculator</h3>
-<p>Interactive calculator created with JavaScript.</p>
-</div>
-</a>
-<a href="clock.html">
-<div class="card">
-<h3> Digital Clock with Moon phases</h3>
-<p>Digital Clock with Time zone settings and moon phases</p>
-</div>
-</a>
-
-<a href="solarsystem.html">
-<div class="card">
-<h3>Interactive Solar System</h3>
-<p>A beautiful solar system snippet</p>
-</div>
-  </a>
-  <a href="compass.html">
-<div class="card">
-<h3> A  Digital Compass</h3>
-<p>You can always find your way</p>
-</div>
-  </a>
-  <a href="converter.html">
-<div class="card">
-<h3> A Converter</h3>
-<p> Convert Between Metric And Imperial Units</p>
-</div>
-  </a>
-
-
-  
-</div>
-
+    <h2>Featured Projects</h2>
+    <div class="projects">
+        <a href="spending-tracker.html">
+            <div class="card" style="--order:0">
+                <i class="fas fa-chart-pie"></i>
+                <h3>Spending Tracker</h3>
+                <p>Track your expenses and export data to spreadsheets with this powerful financial management tool.</p>
+            </div>
+        </a>
+        <a href="calculator.html">
+            <div class="card" style="--order:1">
+                <i class="fas fa-calculator"></i>
+                <h3>JavaScript Calculator</h3>
+                <p>Interactive and responsive calculator with advanced mathematical functions and sleek design.</p>
+            </div>
+        </a>
+        <a href="clock.html">
+            <div class="card" style="--order:2">
+                <i class="fas fa-clock"></i>
+                <h3>Digital Clock with Moon Phases</h3>
+                <p>Beautiful clock featuring timezone settings and real-time moon phase tracking.</p>
+            </div>
+        </a>
+        <a href="solarsystem.html">
+            <div class="card" style="--order:3">
+                <i class="fas fa-solar-panel"></i>
+                <h3>Interactive Solar System</h3>
+                <p>Explore our solar system with this stunning 3D visualization of planets and orbits.</p>
+            </div>
+        </a>
+        <a href="compass.html">
+            <div class="card" style="--order:4">
+                <i class="fas fa-compass"></i>
+                <h3>Digital Compass</h3>
+                <p>Find your way with this accurate digital compass featuring magnetic north detection.</p>
+            </div>
+        </a>
+        <a href="converter.html">
+            <div class="card" style="--order:5">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Unit Converter</h3>
+                <p>Convert between metric and imperial units instantly with this versatile conversion tool.</p>
+            </div>
+        </a>
+    </div>
 </section>
-
 
 <!-- CONTACT -->
-
 <section id="contact">
-
-<h2>Contact Me</h2>
-
-
-<form action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="9ada3ce9-922a-48de-b7d5-4e9a2de5424c" value="9ada3ce9-922a-48de-b7d5-4e9a2de5424c">
-<input type="text" placeholder="Your Name" required>
-
-<input type="email" placeholder="Your Email" required>
-
-<textarea rows="5" placeholder="Message"></textarea>
-
-<button class="btn">Send Message</button>
-</form>
-
-
-
-  
+    <h2>Get In Touch</h2>
+    <div class="contact-container">
+        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="9ada3ce9-922a-48de-b7d5-4e9a2de5424c">
+            <div class="input-group">
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="input-group">
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn contact-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+    </div>
 </section>
 
-
 <footer>
-
-<p>© 2026 Carlos | Uganda</p>
-
+    <p><i class="fas fa-heart" style="color: #38bdf8;"></i> © 2026 Carlos | Uganda <i class="fas fa-code"></i> Building digital solutions with passion</p>
 </footer>
 
-
 <!-- FLOATING BUTTONS -->
-
-<a class="whatsapp" href="https://wa.me/+256707071929">W</a>
-
-<a class="phone" href="tel:+256707071929">📞</a>
-
+<a class="whatsapp" href="https://wa.me/+256707071929" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+<a class="phone" href="tel:+256707071929" aria-label="Call me">
+    <i class="fas fa-phone-alt"></i>
+</a>
 
 <script>
+// Smooth scroll to projects
+function scrollProjects() {
+    document.getElementById("projects").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
 
-function scrollProjects(){
-document.getElementById("projects").scrollIntoView({
-behavior:"smooth"
-});
+// Add animation to skill bars on scroll
+const skillSection = document.getElementById('skills');
+const progressBars = document.querySelectorAll('.progress');
+let animated = false;
+
+function animateSkills() {
+    if (animated) return;
+    const sectionPos = skillSection.getBoundingClientRect().top;
+    const screenPos = window.innerHeight / 1.3;
+    
+    if (sectionPos < screenPos) {
+        progressBars.forEach(bar => {
+            const width = bar.style.getPropertyValue('--width');
+            if (width) {
+                bar.style.width = width;
+            } else {
+                bar.style.width = bar.parentElement.parentElement.querySelector('.skill-header span:last-child').innerText;
+            }
+        });
+        animated = true;
+    }
+}
+
+// Form submission with success message
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(contactForm);
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Show success message
+                showMessage('Message sent successfully! I\'ll get back to you soon. ✅', 'success');
+                contactForm.reset();
+            } else {
+                throw new Error('Failed to send');
+            }
+        } catch (error) {
+            showMessage('Something went wrong. Please try again or contact me directly. ❌', 'error');
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+function showMessage(msg, type) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'success-message';
+    messageDiv.style.background = type === 'success' 
+        ? 'linear-gradient(135deg, #10b981, #059669)' 
+        : 'linear-gradient(135deg, #ef4444, #dc2626)';
+    messageDiv.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+    document.body.appendChild(messageDiv);
+    
+    setTimeout(() => {
+        messageDiv.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+        messageDiv.classList.remove('show');
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 300);
+    }, 4000);
 }
 
 </script>
-
 </body>
-  </html>
+</html>
