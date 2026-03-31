@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Daily Devotion | Christian Scripture & Prayer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            border-radius: 50px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .nav-bar h2 {
+            color: #3b82f6;
+            font-size: 24px;
+        }
+
+        .nav-bar h2 i {
+            color: #fbbf24;
+            margin-right: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        /* Main Container */
+        .devotion-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Date Navigation */
+        .date-nav {
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-btn {
+            background: #3b82f6;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: #2563eb;
+            transform: scale(1.02);
+        }
+
+        .date-picker {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .date-picker input {
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 40px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .today-btn {
+            background: #fbbf24;
+            color: #1e293b;
+        }
+
+        .today-btn:hover {
+            background: #f59e0b;
+            color: white;
+        }
+
+        /* Devotion Card */
+        .devotion-card {
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .verse-header {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .verse-header h3 {
+            font-size: 18px;
+            opacity: 0.9;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .verse-text {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .verse-reference {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .devotion-content {
+            padding: 40px;
+        }
+
+        .devotion-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .devotion-message {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #334155;
+            margin-bottom: 30px;
+        }
+
+        .prayer-section {
+            background: #fef9e6;
+            padding: 25px;
+            border-radius: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #fbbf24;
+        }
+
+        .prayer-section h4 {
+            color: #fbbf24;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .prayer-section p {
+            color: #475569;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .favorite-btn {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .favorite-btn.active {
+            background: #fbbf24;
+            color: white;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+
+        .twitter-btn {
+            background: #000000;
+            color: white;
+        }
+
+        .twitter-btn i {
+            color: #1DA1F2;
+        }
+
+        .audio-btn {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Category Badge */
+        .category-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: #e0e7ff;
+            color: #3b82f6;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Favorites Section */
+        .favorites-section {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .favorites-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .favorite-item {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .favorite-item:hover {
+            background: #f8fafc;
+            transform: translateX(5px);
+        }
+
+        .favorite-verse {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        /* Share Modal */
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .share-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .share-modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .share-modal-content h3 {
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .share-options {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .share-option {
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .share-option.whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .share-option.twitter {
+            background: #000000;
+            color: white;
+        }
+
+        .share-option.whatsapp:hover, .share-option.twitter:hover {
+            transform: scale(1.05);
+        }
+
+        .close-modal {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .verse-text {
+                font-size: 20px;
+            }
+            .devotion-title {
+                font-size: 24px;
+            }
+            .devotion-message {
+                font-size: 16px;
+            }
+            .date-nav {
+                flex-direction: column;
+            }
+            .nav-bar {
+                flex-direction: column;
+                gap: 15px;
+                border-radius: 30px;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .action-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-bar">
+    <h2><i class="fas fa-bible"></i> Daily Devotion</h2>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="#" id="showFavoritesBtn"><i class="fas fa-heart"></i> Favorites</a>
+        <a href="#" id="shareModalBtn"><i class="fas fa-share-alt"></i> Share</a>
+    </div>
+</div>
+
+<div class="devotion-container">
+    <!-- Date Navigation -->
+    <div class="date-nav">
+        <button class="nav-btn" id="prevDayBtn"><i class="fas fa-chevron-left"></i> Previous Day</button>
+        <div class="date-picker">
+            <input type="date" id="datePicker">
+            <button class="nav-btn today-btn" id="todayBtn"><i class="fas fa-calendar-day"></i> Today</button>
+        </div>
+        <button class="nav-btn" id="nextDayBtn">Next Day <i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Main Devotion Card -->
+    <div class="devotion-card" id="devotionCard">
+        <div class="verse-header">
+            <h3><i class="fas fa-quote-left"></i> SCRIPTURE FOR TODAY</h3>
+            <div class="verse-text" id="verseText">Loading...</div>
+            <div class="verse-reference" id="verseRef"></div>
+        </div>
+        <div class="devotion-content">
+            <span class="category-badge" id="categoryTag">Faith</span>
+            <h2 class="devotion-title" id="devotionTitle">Daily Inspiration</h2>
+            <div class="devotion-message" id="devotionMessage"></div>
+            <div class="prayer-section">
+                <h4><i class="fas fa-hands-praying"></i> Prayer Point</h4>
+                <p id="prayerText"></p>
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn favorite-btn" id="favoriteBtn">
+                    <i class="far fa-heart"></i> Save to Favorites
+                </button>
+                <button class="action-btn whatsapp-btn" id="whatsappShareBtn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+                <button class="action-btn twitter-btn" id="twitterShareBtn">
+                    <i class="fab fa-twitter"></i> Post to X
+                </button>
+                <button class="action-btn audio-btn" id="audioBtn">
+                    <i class="fas fa-volume-up"></i> Listen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favorites Section (Hidden by default) -->
+    <div class="favorites-section" id="favoritesSection" style="display: none;">
+        <h3><i class="fas fa-heart" style="color: #fbbf24;"></i> My Favorite Verses</h3>
+        <div id="favoritesList"></div>
+    </div>
+</div>
+
+<!-- Share Modal -->
+<div class="share-modal" id="shareModal">
+    <div class="share-modal-content">
+        <h3><i class="fas fa-share-alt"></i> Share This Devotion</h3>
+        <div class="share-options">
+            <div class="share-option whatsapp" id="modalWhatsappBtn">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </div>
+            <div class="share-option twitter" id="modalTwitterBtn">
+                <i class="fab fa-twitter"></i> X (Twitter)
+            </div>
+        </div>
+        <button class="close-modal" id="closeModalBtn">Close</button>
+    </div>
+</div>
+
+<script>
+    // Complete Devotion Data - 30 Days of Inspirational Devotions
+    const devotions = [
+        {
+            id: 1,
+            date: "2026-04-01",
+            verse: "Jeremiah 29:11",
+            scripture: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.",
+            title: "God's Perfect Plan",
+            message: "In times of uncertainty, remember that God has already mapped out your path. His plans are not meant to harm you but to bring you into a future filled with hope. Even when life feels chaotic, trust that He is working behind the scenes for your good. The plans He has for you are greater than anything you could imagine for yourself.",
+            prayer: "Heavenly Father, help me to trust in Your perfect plan for my life. When I can't see the way, help me to walk by faith. Give me patience to wait on Your timing and courage to follow where You lead. Amen.",
+            category: "Hope"
+        },
+        {
+            id: 2,
+            date: "2026-04-02",
+            verse: "Philippians 4:13",
+            scripture: "I can do all things through Christ who strengthens me.",
+            title: "Strength for Every Challenge",
+            message: "You are not alone in your struggles. Whatever mountain you're facing today, remember that Christ's strength is made perfect in your weakness. When you feel inadequate, He becomes your sufficiency. When you feel overwhelmed, He becomes your peace. You can face anything because He is with you.",
+            prayer: "Lord Jesus, thank You for being my source of strength. Help me to rely on You rather than my own abilities. Give me confidence to face today's challenges knowing You are with me. Amen.",
+            category: "Strength"
+        },
+        {
+            id: 3,
+            date: "2026-04-03",
+            verse: "Psalm 23:1",
+            scripture: "The Lord is my shepherd; I shall not want.",
+            title: "Complete Provision",
+            message: "God is not just a provider; He is your Shepherd. A shepherd knows each sheep by name, cares for their every need, and protects them from harm. Because He is your Shepherd, you lack nothing. Every need - physical, emotional, and spiritual - is already provided for.",
+            prayer: "Good Shepherd, thank You for caring for me so intimately. Help me to trust in Your provision and rest in Your care. I surrender my worries and anxieties to You. Amen.",
+            category: "Trust"
+        },
+        {
+            id: 4,
+            date: "2026-04-04",
+            verse: "Romans 8:28",
+            scripture: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",
+            title: "Working for Good",
+            message: "Not some things, but ALL things work together for good. The difficult moments, the setbacks, the waiting seasons - God is weaving them all into a beautiful tapestry. Trust that He is redeeming every situation for your benefit and His glory.",
+            prayer: "Father, help me to see Your hand in every situation. Give me faith to believe that You are working even when I can't see it. Thank You for turning trials into triumphs. Amen.",
+            category: "Faith"
+        },
+        {
+            id: 5,
+            date: "2026-04-05",
+            verse: "Joshua 1:9",
+            scripture: "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+            title: "Fear Not",
+            message: "God doesn't just suggest that you be courageous; He commands it. Fear and discouragement are not from Him. Today, step out in faith knowing that the same God who parted the Red Sea goes before you. You are never alone.",
+            prayer: "Mighty God, remove fear from my heart. Fill me with Your courage and confidence. Help me to walk boldly in the path You've set before me. Amen.",
+            category: "Courage"
+        },
+        {
+            id: 6,
+            date: "2026-04-06",
+            verse: "Isaiah 40:31",
+            scripture: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",
+            title: "Renewed Strength",
+            message: "When you feel exhausted and depleted, God offers supernatural renewal. Waiting on Him isn't passive - it's an active trust that refreshes your soul. As you fix your eyes on Him, you'll find strength to rise above circumstances like an eagle soaring above storms.",
+            prayer: "Lord, I'm tired. Renew my strength today. Help me to wait on You with expectation and trust. Lift me up on wings like eagles. Amen.",
+            category: "Restoration"
+        },
+        {
+            id: 7,
+            date: "2026-04-07",
+            verse: "Proverbs 3:5-6",
+            scripture: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
+            title: "Trust Beyond Understanding",
+            message: "Your understanding is limited, but God's wisdom is infinite. When you can't figure things out, trust that He already has. Surrender every decision, every worry, every plan to Him, and watch how He guides your steps perfectly.",
+            prayer: "Lord, I choose to trust You even when I don't understand. Guide my steps and make my path straight. I surrender my plans to Your perfect will. Amen.",
+            category: "Wisdom"
+        },
+        {
+            id: 8,
+            date: "2026-04-08",
+            verse: "Psalm 46:10",
+            scripture: "Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.",
+            title: "The Power of Stillness",
+            message: "In a world that constantly demands your attention, God invites you to be still. Not passive, but actively resting in His presence. When you pause to recognize who He is, your anxieties lose their power and peace fills your heart.",
+            prayer: "Father, teach me to be still in Your presence. Quiet the noise around me and within me. Help me to know You more deeply today. Amen.",
+            category: "Peace"
+        },
+        {
+            id: 9,
+            date: "2026-04-09",
+            verse: "Matthew 11:28",
+            scripture: "Come to me, all you who are weary and burdened, and I will give you rest.",
+            title: "True Rest",
+            message: "You don't have to carry your burdens alone. Jesus invites you to exchange your heavy load for His light yoke. His rest doesn't mean escaping problems, but facing them with supernatural peace and strength.",
+            prayer: "Jesus, I come to You with my weariness. Take my burdens and give me Your rest. Help me to walk in Your peace today. Amen.",
+            category: "Rest"
+        },
+        {
+            id: 10,
+            date: "2026-04-10",
+            verse: "2 Corinthians 5:
