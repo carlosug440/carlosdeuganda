@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Spending Tracker</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#0f172a;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+form{
+display:grid;
+gap:10px;
+margin-bottom:20px;
+}
+
+input,button{
+padding:10px;
+border:none;
+border-radius:5px;
+}
+
+button{
+background:#38bdf8;
+cursor:pointer;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+background:#020617;
+}
+
+th,td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #1e293b;
+}
+
+.total{
+margin-top:15px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Spending Tracker</h1>
+
+<form id="expenseForm">
+
+<input type="text" id="item" placeholder="Item name" required>
+
+<input type="number" id="amount" placeholder="Amount" required>
+
+<input type="date" id="date" required>
+
+<button type="submit">Add Expense</button>
+
+</form>
+
+<button onclick="downloadExcel()">Download Excel</button>
+
+<table id="table">
+
+<thead>
+<tr>
+<th>Item</th>
+<th>Amount</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+<div class="total">
+Total: $<span id="total">0</span>
+</div>
+
+</div>
+
+<script>
+
+let expenses=[];
+let total=0;
+
+const form=document.getElementById("expenseForm");
+const table=document.querySelector("#table tbody");
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let item=document.getElementById("item").value;
+let amount=parseFloat(document.getElementById("amount").value);
+let date=document.getElementById("date").value;
+
+expenses.push({item,amount,date});
+
+total+=amount;
+
+document.getElementById("total").textContent=total;
+
+let row=table.insertRow();
+
+row.insertCell(0).textContent=item;
+row.insertCell(1).textContent=amount;
+row.insertCell(2).textContent=date;
+
+form.reset();
+
+});
+
+
+function downloadExcel(){
+
+let worksheet=XLSX.utils.json_to_sheet(expenses);
+
+let workbook=XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(workbook,worksheet,"Expenses");
+
+XLSX.writeFile(workbook,"spending-tracker.xlsx");
+
+}
+
+</script>
+
+</body>
+  </html>
