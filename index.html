@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Carlos De Uganda| Web Developer Portfolio</title>
+<title>Bitlinux | Web Developer Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
@@ -906,7 +906,7 @@
 </section>
 
 <footer>
-    <p><i class="fas fa-heart" style="color: #fbbf24;"></i> © 2026 Bitlinux | Carlos De Uganda| Luzira, Kampala, Uganda <i class="fas fa-code"></i> Building digital solutions with passion</p>
+    <p><i class="fas fa-heart" style="color: #fbbf24;"></i> © 2026 Bitlinux | Carlos De Uganda | Luzira, Kampala, Uganda <i class="fas fa-code"></i> Building digital solutions with passion</p>
 </footer>
 
 <div class="whatsapp" id="whatsappBtn"><i class="fab fa-whatsapp"></i></div>
@@ -919,7 +919,7 @@
         displayName: "Carlos De Uganda",
         about: "I'm a passionate self-taught programmer and graphic designer from Luzira, Kampala, Uganda. With 1 year of coding experience and 2 years in graphic design, I've dedicated myself to mastering web development and digital creativity. My journey as a self-taught developer has taught me resilience, problem-solving, and the power of continuous learning. I specialize in building responsive websites, creating stunning visual designs, and helping businesses establish their online presence. I'm committed to empowering youth in my community with digital skills and creating solutions that make a difference.",
         stats: [
-            { value: "7+", label: "Projects Completed" },
+            { value: "10+", label: "Projects Completed" },
             { value: "4+", label: "Happy Clients" },
             { value: "1+", label: "Years Coding" },
             { value: "2+", label: "Years Design" }
@@ -945,7 +945,11 @@
             { id: 3, name: "Digital Clock", category: "web", icon: "fas fa-clock", desc: "Clock with moon phases and timezone settings", link: "clock.html" },
             { id: 4, name: "Solar System", category: "3d", icon: "fas fa-solar-panel", desc: "3D visualization of planets and orbits", link: "solarsystem.html" },
             { id: 5, name: "Digital Compass", category: "tool", icon: "fas fa-compass", desc: "Magnetic north detection compass", link: "compass.html" },
-            { id: 6, name: "Unit Converter", category: "tool", icon: "fas fa-exchange-alt", desc: "Convert between metric and imperial units", link: "converter.html" }
+            { id: 6, name: "Unit Converter", category: "tool", icon: "fas fa-exchange-alt", desc: "Convert between metric and imperial units", link: "converter.html" },
+            { id: 7, name: "Weather App", category: "web", icon: "fas fa-cloud-sun", desc: "Real-time weather forecasts and radar maps", link: "weather-app.html" },
+            { id: 8, name: "Download Hub", category: "tool", icon: "fas fa-download", desc: "Third-party downloads manager and resources", link: "download-hub.html" },
+            { id: 9, name: "DocuShare", category: "web", icon: "fas fa-file-alt", desc: "Secure document sharing and collaboration platform", link: "docushare.html" },
+            { id: 10, name: "Daily Devotion", category: "web", icon: "fas fa-bible", desc: "Christian scripture devotion and prayer guide", link: "daily-devotion.html" }
         ]
     };
 
@@ -1102,81 +1106,4 @@
         toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
         document.body.appendChild(toast);
         
-        setTimeout(() => toast.classList.add('show'), 100);
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }, 4000);
-    }
-
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = document.getElementById('contactName').value;
-        const email = document.getElementById('contactEmail').value;
-        const message = document.getElementById('contactMessage').value;
-        const sendBtn = document.getElementById('sendBtn');
-        
-        if (!name || !email || !message) {
-            showToast('Please fill in all fields', 'error');
-            return;
-        }
-        
-        const originalText = sendBtn.innerHTML;
-        sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        sendBtn.disabled = true;
-        
-        setTimeout(() => {
-            showToast(`Thanks ${name}! Message sent successfully. I'll reply soon.`, 'success');
-            contactForm.reset();
-            sendBtn.innerHTML = originalText;
-            sendBtn.disabled = false;
-        }, 1500);
-    });
-
-    function smoothScroll(targetId) {
-        const target = document.getElementById(targetId);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-
-    viewWorkBtn.addEventListener('click', () => smoothScroll('projects'));
-    contactBtn.addEventListener('click', () => smoothScroll('contact'));
-    whatsappBtn.addEventListener('click', () => window.open('https://wa.me/+256707071929', '_blank'));
-    phoneBtn.addEventListener('click', () => window.location.href = 'tel:+256707071929');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = link.getAttribute('data-section');
-            smoothScroll(section);
-        });
-    });
-
-    function init() {
-        typeWriter(typedNameEl, portfolioData.displayName, 80);
-        aboutTextEl.textContent = portfolioData.about;
-        dynamicQuote.innerHTML = `<i class="fas fa-quote-left"></i> ${portfolioData.quotes[0]}`;
-        renderStats();
-        renderSkills();
-        renderFilters();
-        renderProjects("all");
-        rotateQuotes();
-        
-        window.addEventListener('scroll', () => {
-            updateActiveNav();
-            handleNavbarScroll();
-        });
-        updateActiveNav();
-        handleNavbarScroll();
-        
-        const profileImg = document.getElementById('profileImg');
-        profileImg.onerror = () => {
-            profileImg.src = 'https://via.placeholder.com/400x400?text=Carlos';
-        };
-    }
-    
-    init();
-</script>
-</body>
-   </html>
+       
