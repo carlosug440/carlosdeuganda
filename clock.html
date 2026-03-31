@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>World Clock</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#0f172a;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.clock-container{
+background:#020617;
+padding:30px;
+border-radius:10px;
+width:320px;
+text-align:center;
+}
+
+h1{
+margin-bottom:15px;
+}
+
+select{
+padding:8px;
+margin-bottom:15px;
+width:100%;
+}
+
+.time{
+font-size:32px;
+margin:10px 0;
+}
+
+.info{
+margin-top:10px;
+font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="clock-container">
+
+<h1>World Clock</h1>
+
+<select id="timezone">
+
+<option value="0">UTC</option>
+<option value="3">East Africa (EAT)</option>
+<option value="-5">New York</option>
+<option value="1">London</option>
+<option value="9">Tokyo</option>
+
+</select>
+
+<div class="time" id="time"></div>
+
+<div class="info" id="date"></div>
+
+<div class="info" id="dayNumber"></div>
+
+<div class="info" id="moon"></div>
+
+</div>
+
+<script>
+
+function updateClock(){
+
+let now=new Date();
+
+let offset=parseInt(document.getElementById("timezone").value);
+
+let utc=now.getTime()+now.getTimezoneOffset()*60000;
+
+let localTime=new Date(utc+3600000*offset);
+
+let hours=localTime.getHours().toString().padStart(2,"0");
+let minutes=localTime.getMinutes().toString().padStart(2,"0");
+let seconds=localTime.getSeconds().toString().padStart(2,"0");
+
+document.getElementById("time").textContent=`${hours}:${minutes}:${seconds}`;
+
+let month=localTime.toLocaleString("default",{month:"long"});
+let day=localTime.toLocaleString("default",{weekday:"long"});
+
+document.getElementById("date").textContent=`${day}, ${month}`;
+
+let start=new Date(localTime.getFullYear(),0,0);
+
+let diff=localTime-start;
+
+let oneDay=1000*60*60*24;
+
+let dayOfYear=Math.floor(diff/oneDay);
+
+document.getElementById("dayNumber").textContent=`Day ${dayOfYear} of the year`;
+
+document.getElementById("moon").textContent=getMoonPhase();
+
+}
+
+function getMoonPhase(){
+
+let lp=2551443;
+
+let now=new Date();
+
+let new_moon=new Date(1970,0,7,20,35,0);
+
+let phase=((now.getTime()-new_moon.getTime())/1000)%lp;
+
+let index=Math.floor((phase/lp)*8);
+
+let phases=[
+"🌑 New Moon",
+"🌒 Waxing Crescent",
+"🌓 First Quarter",
+"🌔 Waxing Gibbous",
+"🌕 Full Moon",
+"🌖 Waning Gibbous",
+"🌗 Last Quarter",
+"🌘 Waning Crescent"
+];
+
+return phases[index];
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+</script>
+
+</body>
+  </html>
