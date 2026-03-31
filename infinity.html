@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,116 +7,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interactive Mandelbrot Fractal</title>
 <style>
-body, html{
-margin:0;
-padding:0;
-overflow:hidden;
-background:black;
-height:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-canvas{
-display:block;
-cursor:crosshair;
-}
+body, html{margin:0;padding:0;overflow:hidden;background:black;}
+canvas{display:block;cursor:crosshair;}
 #instructions{
-position:absolute;
-top:10px;
-left:10px;
-color:white;
-font-family:Arial;
-background:rgba(0,0,0,0.5);
-padding:10px;
-border-radius:5px;
+position:absolute;top:10px;left:10px;color:white;font-family:Arial;background:rgba(0,0,0,0.5);padding:10px;border-radius:5px;
 }
 </style>
 </head>
 <body>
-<div id="instructions">
-Click to zoom, drag to pan
-</div>
+<div id="instructions">Click to zoom in</div>
 <canvas id="fractal"></canvas>
-
 <script>
-const canvas=document.getElementById('fractal');
-const ctx=canvas.getContext('2d');
-let width=canvas.width=window.innerWidth;
-let height=canvas.height=window.innerHeight;
+const canvas = document.getElementById('fractal');
+const ctx = canvas.getContext('2d');
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
 
 // Mandelbrot parameters
-let zoom=200;
-let offsetX=0;
-let offsetY=0;
-let maxIter=500;
+let zoom = 200;
+let offsetX = 0;
+let offsetY = 0;
+let maxIter = 300;
 
-// Track dragging
-let isDragging=false;
-let dragStart={x:0,y:0};
-let dragOffset={x:0,y:0};
+// Render Mandelbrot
+function draw(){
+  const img = ctx.createImageData(width, height);
+  const data = img.data;
+  for(let px=0; px<width; px++){
+    for(let py=0; py<height; py++){
+      let x0 = (px - width/2)/zoom - offsetX;
+      let y0 = (py - height/2)/zoom - offsetY;
+      let x = 0, y = 0;
+      let iter = 0;
+      while(x*x + y*y <=4 && iter<maxIter){
+        let xtemp = x*x - y*y + x0;
+        y = 2*x*y + y0;
+        x = xtemp;
+        iter++;
+      }
+      const color = iter === maxIter ? 0 : Math.floor(255 * iter / maxIter);
+      const idx = 4*(py*width + px);
+      data[idx] = color;          // R
+      data[idx+1] = color*0.5;    // G
+      data[idx+2] = 255-color;    // B
+      data[idx+3] = 255;          // A
+    }
+  }
+  ctx.putImageData(img,0,0);
+}
 
-function mandelbrot(){
-for(let px=0;px<width;px++){
-for(let py=0;py<height;py++){
-let x0=(px-width/2)/zoom - offsetX;
-let y0=(py-height/2)/zoom - offsetY;
-let x=0;
-let y=0;
-let iteration=0;
-while(x*x+y*y<=4 && iteration<maxIter){
-let xtemp=x*x - y*y + x0;
-y=2*x*y + y0;
-x=xtemp;
-iteration++;
-}
-let color=iteration===maxIter?0:255*Math.sqrt(iteration/maxIter);
-ctx.fillStyle=`rgb(${color},${color*0.5},${255-color})`;
-ctx.fillRect(px,py,1,1);
-}
-}
-}
-
-mandelbrot();
+draw();
 
 // Zoom on click
-canvas.addEventListener('click',function(e){
-let mx=e.clientX-width/2;
-let my=e.clientY-height/2;
-offsetX+=mx/zoom;
-offsetY+=my/zoom;
-zoom*=2; // zoom in
-mandelbrot();
-});
-
-// Drag to pan
-canvas.addEventListener('mousedown',function(e){
-isDragging=true;
-dragStart={x:e.clientX,y:e.clientY};
-});
-canvas.addEventListener('mouseup',function(e){
-isDragging=false;
-offsetX-=dragOffset.x/zoom;
-offsetY-=dragOffset.y/zoom;
-dragOffset={x:0,y:0};
-mandelbrot();
-});
-canvas.addEventListener('mousemove',function(e){
-if(isDragging){
-dragOffset.x=e.clientX-dragStart.x;
-dragOffset.y=e.clientY-dragStart.y;
-ctx.save();
-ctx.translate(dragOffset.x,dragOffset.y);
-mandelbrot();
-ctx.restore();
-}
+canvas.addEventListener('click', e=>{
+  const mx = e.clientX - width/2;
+  const my = e.clientY - height/2;
+  offsetX += mx/zoom;
+  offsetY += my/zoom;
+  zoom *= 2;
+  draw();
 });
 
 // Resize
-window.addEventListener('resize',function(){
-width=canvas.width=window.innerWidth;
-height=canvas.height=window.innerHeight;
-mandelbrot();
+window.addEventListener('resize', ()=>{
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+  draw();
 });
 </script>
 </body>
