@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Carlos | Web Developer - Interactive Portfolio</title>
+<title>Wanyale Charles Mark | Web Developer Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
@@ -96,7 +96,7 @@
         color: var(--primary-blue);
     }
 
-    /* HERO SECTION - Improved Layout */
+    /* HERO SECTION */
     .hero {
         display: flex;
         align-items: center;
@@ -107,7 +107,6 @@
         background: linear-gradient(135deg, #ffffff 0%, #fef9e6 100%);
     }
 
-    /* Hero Text Container */
     .hero-text {
         flex: 1;
         max-width: 550px;
@@ -139,7 +138,23 @@
         font-weight: 500;
     }
 
-    /* Profile Image Container - Right Side */
+    .location-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+        margin-top: 5px;
+    }
+
+    .location-link:hover {
+        color: #2563eb;
+        transform: translateX(3px);
+    }
+
+    /* Profile Image Container - Larger Size */
     .hero-image {
         flex: 1;
         display: flex;
@@ -147,29 +162,29 @@
         align-items: center;
     }
 
-    /* Square Profile Image */
     .profile {
         width: 100%;
-        max-width: 380px;
+        max-width: 450px;
         height: auto;
         aspect-ratio: 1 / 1;
         overflow: hidden;
-        border: 4px solid var(--primary-yellow);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        border: 5px solid var(--primary-yellow);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
         transition: 0.3s;
-        border-radius: 20px;
+        border-radius: 25px;
     }
 
     .profile:hover {
         transform: scale(1.02);
-        box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 30px 60px rgba(59, 130, 246, 0.25);
     }
 
     .profile img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
     }
 
     .btn {
@@ -243,7 +258,7 @@
         border-radius: 2px;
     }
 
-    /* ABOUT SECTION */
+    /* ABOUT SECTION - Enhanced */
     #about {
         background: var(--dark-bg);
         border-radius: 30px;
@@ -253,10 +268,103 @@
 
     #about p {
         max-width: 800px;
-        margin: 0 auto;
+        margin: 0 auto 20px auto;
         font-size: 18px;
         color: var(--text-light);
         line-height: 1.8;
+    }
+
+    .personal-details {
+        max-width: 600px;
+        margin: 30px auto 0;
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        text-align: left;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 12px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .detail-item:last-child {
+        border-bottom: none;
+    }
+
+    .detail-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(59, 130, 246, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-blue);
+        font-size: 20px;
+    }
+
+    .detail-content {
+        flex: 1;
+    }
+
+    .detail-label {
+        font-size: 12px;
+        color: var(--text-light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .detail-value {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .detail-value a {
+        color: var(--primary-blue);
+        text-decoration: none;
+    }
+
+    .detail-value a:hover {
+        text-decoration: underline;
+    }
+
+    .experience-badges {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    .exp-badge {
+        background: white;
+        padding: 10px 20px;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .exp-badge i {
+        color: var(--primary-yellow);
+        font-size: 20px;
+    }
+
+    .exp-badge span {
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .exp-badge small {
+        color: var(--text-light);
+        font-size: 12px;
     }
 
     /* SKILLS SECTION */
@@ -568,7 +676,7 @@
         }
         
         .profile {
-            max-width: 320px;
+            max-width: 380px;
         }
         
         .button-group {
@@ -609,7 +717,7 @@
         }
         
         .profile {
-            max-width: 280px;
+            max-width: 320px;
         }
         
         .stat-number {
@@ -637,6 +745,20 @@
         
         .phone {
             bottom: 85px;
+        }
+        
+        .personal-details {
+            padding: 20px;
+        }
+        
+        .detail-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 8px;
+        }
+        
+        .detail-icon {
+            margin: 0 auto;
         }
     }
     
@@ -667,8 +789,9 @@
             font-size: 24px;
         }
         
-        .stat-label {
-            font-size: 12px;
+        .experience-badges {
+            flex-direction: column;
+            align-items: center;
         }
     }
 </style>
@@ -676,7 +799,7 @@
 <body>
 
 <nav id="navbar">
-    <h2><i class="fas fa-code" style="color: #3b82f6;"></i> Carlos</h2>
+    <h2><i class="fas fa-code" style="color: #3b82f6;"></i> Wanyale Charles</h2>
     <ul id="navLinks">
         <li><a href="#home" data-section="home">Home</a></li>
         <li><a href="#about" data-section="about">About</a></li>
@@ -686,11 +809,15 @@
     </ul>
 </nav>
 
-<!-- HERO - Improved Layout: Text Left, Image Right -->
+<!-- HERO -->
 <div class="hero" id="home">
     <div class="hero-text">
         <h1>Hello, I'm <span id="typedName"></span></h1>
-        <p class="location"><i class="fas fa-map-marker-alt" style="color: #3b82f6;"></i> Web Developer | Graphic Designer | Email Marketer | Youth Empowerment Advocate from Uganda</p>
+        <p class="location"><i class="fas fa-map-marker-alt" style="color: #3b82f6;"></i> Web Developer | Graphic Designer | Email Marketer | Youth Empowerment Advocate</p>
+        <a href="https://maps.google.com/?q=Luzira+Kampala+Uganda" target="_blank" class="location-link">
+            <i class="fas fa-location-dot"></i> Luzira, Kampala, Uganda
+            <i class="fas fa-external-link-alt" style="font-size: 12px;"></i>
+        </a>
         <p id="dynamicQuote"></p>
         <div class="button-group">
             <button class="btn" id="viewWorkBtn"><i class="fas fa-arrow-down"></i> View My Work</button>
@@ -699,15 +826,64 @@
     </div>
     <div class="hero-image">
         <div class="profile">
-            <img src="images/IMG_20240830_162436_3-1.jpg" alt="Carlos - Web Developer" id="profileImg">
+            <img src="images/IMG_20240830_162436_3-1.jpg" alt="Wanyale Charles Mark - Web Developer" id="profileImg">
         </div>
     </div>
 </div>
 
-<!-- ABOUT -->
+<!-- ABOUT - Enhanced with Real Details -->
 <section id="about">
     <h2>About Me</h2>
     <p id="aboutText"></p>
+    
+    <!-- Personal Details Card -->
+    <div class="personal-details">
+        <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-user"></i></div>
+            <div class="detail-content">
+                <div class="detail-label">Full Name</div>
+                <div class="detail-value">Wanyale Charles Mark</div>
+            </div>
+        </div>
+        <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-map-pin"></i></div>
+            <div class="detail-content">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">
+                    <a href="https://maps.google.com/?q=Luzira+Kampala+Uganda" target="_blank">
+                        <i class="fas fa-location-dot"></i> Luzira, Kampala, Uganda
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="detail-content">
+                <div class="detail-label">Journey</div>
+                <div class="detail-value">Self-Taught Programmer</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Experience Badges -->
+    <div class="experience-badges">
+        <div class="exp-badge">
+            <i class="fas fa-code"></i>
+            <span>1+ Year</span>
+            <small>Coding Experience</small>
+        </div>
+        <div class="exp-badge">
+            <i class="fas fa-palette"></i>
+            <span>2+ Years</span>
+            <small>Graphic Design</small>
+        </div>
+        <div class="exp-badge">
+            <i class="fas fa-rocket"></i>
+            <span>Self-Taught</span>
+            <small>Developer</small>
+        </div>
+    </div>
+    
     <div id="statsContainer"></div>
 </section>
 
@@ -745,7 +921,7 @@
 </section>
 
 <footer>
-    <p><i class="fas fa-heart" style="color: #fbbf24;"></i> © 2026 Carlos | Uganda <i class="fas fa-code"></i> Building digital solutions with passion</p>
+    <p><i class="fas fa-heart" style="color: #fbbf24;"></i> © 2026 Wanyale Charles Mark | Luzira, Kampala, Uganda <i class="fas fa-code"></i> Building digital solutions with passion</p>
 </footer>
 
 <!-- FLOATING BUTTONS -->
@@ -757,29 +933,31 @@
     // JAVASCRIPT IS THE HEART - All dynamic content
     // ============================================
 
-    // Data Store
+    // Data Store - Updated with Real Information
     const portfolioData = {
-        name: "Carlos De Uganda",
-        about: "I'm a passionate technologist and digital creator dedicated to empowering young people with essential digital skills. With expertise in web development, graphic design, and digital marketing, I help businesses establish strong online presence. My mission is to bridge the digital divide by providing modern, responsive, and user-friendly solutions that drive growth and success in the digital age.",
+        name: "Wanyale Charles Mark",
+        displayName: "Charles",
+        about: "I'm a passionate self-taught programmer and graphic designer from Luzira, Kampala, Uganda. With 1 year of coding experience and 2 years in graphic design, I've dedicated myself to mastering web development and digital creativity. My journey as a self-taught developer has taught me resilience, problem-solving, and the power of continuous learning. I specialize in building responsive websites, creating stunning visual designs, and helping businesses establish their online presence. I'm committed to empowering youth in my community with digital skills and creating solutions that make a difference.",
         stats: [
-            { value: "50+", label: "Projects Completed" },
-            { value: "30+", label: "Happy Clients" },
-            { value: "5+", label: "Years Experience" },
-            { value: "100+", label: "Students Trained" }
+            { value: "15+", label: "Projects Completed" },
+            { value: "12+", label: "Happy Clients" },
+            { value: "1+", label: "Years Coding" },
+            { value: "2+", label: "Years Design" }
         ],
         quotes: [
             "Code is poetry in motion",
             "Building dreams one line at a time",
             "Empowering youth through technology",
-            "Creativity meets functionality"
+            "Creativity meets functionality",
+            "Self-taught, self-motivated, self-made"
         ],
         skills: [
-            { name: "HTML5", icon: "fab fa-html5", level: 95 },
-            { name: "CSS3", icon: "fab fa-css3-alt", level: 90 },
-            { name: "JavaScript", icon: "fab fa-js", level: 88 },
-            { name: "Graphic Design", icon: "fas fa-palette", level: 85 },
-            { name: "Email Marketing", icon: "fas fa-envelope", level: 82 },
-            { name: "Social Media Management", icon: "fas fa-chart-line", level: 80 }
+            { name: "HTML5", icon: "fab fa-html5", level: 92 },
+            { name: "CSS3", icon: "fab fa-css3-alt", level: 88 },
+            { name: "JavaScript", icon: "fab fa-js", level: 85 },
+            { name: "Graphic Design", icon: "fas fa-palette", level: 90 },
+            { name: "Email Marketing", icon: "fas fa-envelope", level: 80 },
+            { name: "Social Media Management", icon: "fas fa-chart-line", level: 82 }
         ],
         projects: [
             { id: 1, name: "Spending Tracker", category: "web", icon: "fas fa-chart-pie", desc: "Track expenses and export data to spreadsheets", link: "spending-tracker.html" },
@@ -1010,7 +1188,7 @@
 
     // ========== INITIALIZE ==========
     function init() {
-        typeWriter(typedNameEl, portfolioData.name, 80);
+        typeWriter(typedNameEl, portfolioData.displayName, 80);
         aboutTextEl.textContent = portfolioData.about;
         dynamicQuote.innerHTML = `<i class="fas fa-quote-left"></i> ${portfolioData.quotes[0]}`;
         renderStats();
@@ -1028,7 +1206,7 @@
         
         const profileImg = document.getElementById('profileImg');
         profileImg.onerror = () => {
-            profileImg.src = 'https://via.placeholder.com/400x400?text=Carlos';
+            profileImg.src = 'https://via.placeholder.com/450x450?text=Wanyale+Charles';
         };
     }
     
