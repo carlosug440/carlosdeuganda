@@ -1,171 +1,561 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Scientific Calculator</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Advanced Scientific Calculator | Calculus & More</title>
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        padding: 20px;
+    }
 
-body{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-background:#0f172a;
-}
+    .calculator {
+        background: rgba(2, 6, 23, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 450px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+    }
 
-.calculator{
-background:#020617;
-padding:20px;
-border-radius:10px;
-width:320px;
-}
+    #display {
+        width: 100%;
+        height: 70px;
+        font-size: 24px;
+        margin-bottom: 15px;
+        padding: 15px;
+        border: none;
+        outline: none;
+        background: #1e293b;
+        color: white;
+        border-radius: 12px;
+        text-align: right;
+        font-family: monospace;
+        letter-spacing: 1px;
+    }
 
-#display{
-width:100%;
-height:50px;
-font-size:22px;
-margin-bottom:10px;
-padding:10px;
-border:none;
-outline:none;
-}
+    .mode-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
 
-.buttons{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:8px;
-}
+    .mode-btn {
+        flex: 1;
+        padding: 8px;
+        background: #334155;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+        transition: 0.3s;
+    }
 
-button{
-padding:15px;
-font-size:16px;
-border:none;
-cursor:pointer;
-background:#1e293b;
-color:white;
-border-radius:5px;
-}
+    .mode-btn.active {
+        background: #38bdf8;
+        color: #0f172a;
+    }
 
-button:hover{
-background:#38bdf8;
-}
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+    }
 
-.equal{
-background:#38bdf8;
-}
+    button {
+        padding: 12px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        background: #1e293b;
+        color: white;
+        border-radius: 10px;
+        transition: all 0.2s;
+        font-weight: 500;
+    }
 
+    button:hover {
+        background: #38bdf8;
+        transform: translateY(-2px);
+    }
+
+    .equal {
+        background: #38bdf8;
+        color: #0f172a;
+        font-weight: bold;
+    }
+
+    .equal:hover {
+        background: #0ea5e9;
+    }
+
+    .calc-btn {
+        background: #334155;
+    }
+
+    .func-btn {
+        background: #4c1d95;
+    }
+
+    .trig-btn {
+        background: #065f46;
+    }
+
+    .calc-btn:hover, .func-btn:hover, .trig-btn:hover {
+        background: #38bdf8;
+    }
+
+    .result-panel {
+        margin-top: 15px;
+        padding: 10px;
+        background: #1e293b;
+        border-radius: 10px;
+        font-size: 12px;
+        color: #94a3b8;
+        text-align: center;
+    }
+
+    @media (max-width: 480px) {
+        .calculator { padding: 15px; }
+        button { padding: 10px; font-size: 12px; }
+        #display { font-size: 20px; height: 60px; }
+        .buttons { gap: 6px; }
+    }
 </style>
 </head>
-
 <body>
 
 <div class="calculator">
-
-<input type="text" id="display" disabled>
-
-<div class="buttons">
-
-<button onclick="clearDisplay()">C</button>
-<button onclick="deleteLast()">DEL</button>
-<button onclick="insert('(')">(</button>
-<button onclick="insert(')')">)</button>
-<button onclick="insert('/')">÷</button>
-
-<button onclick="insert('7')">7</button>
-<button onclick="insert('8')">8</button>
-<button onclick="insert('9')">9</button>
-<button onclick="insert('*')">×</button>
-<button onclick="sqrt()">√</button>
-
-<button onclick="insert('4')">4</button>
-<button onclick="insert('5')">5</button>
-<button onclick="insert('6')">6</button>
-<button onclick="power()">x²</button>
-<button onclick="insert('-')">−</button>
-
-<button onclick="insert('1')">1</button>
-<button onclick="insert('2')">2</button>
-<button onclick="insert('3')">3</button>
-<button onclick="insert('+')">+</button>
-<button onclick="pi()">π</button>
-
-<button onclick="sin()">sin</button>
-<button onclick="cos()">cos</button>
-<button onclick="tan()">tan</button>
-<button onclick="log()">log</button>
-<button class="equal" onclick="calculate()">=</button>
-
-<button onclick="insert('0')">0</button>
-<button onclick="insert('.')">.</button>
-
-</div>
-
+    <input type="text" id="display" readonly>
+    
+    <div class="mode-buttons">
+        <button class="mode-btn active" data-mode="deg">DEG</button>
+        <button class="mode-btn" data-mode="rad">RAD</button>
+    </div>
+    
+    <div class="buttons">
+        <!-- Row 1 -->
+        <button onclick="clearDisplay()" class="calc-btn">C</button>
+        <button onclick="deleteLast()" class="calc-btn">DEL</button>
+        <button onclick="insert('(')" class="calc-btn">(</button>
+        <button onclick="insert(')')" class="calc-btn">)</button>
+        <button onclick="insert('/')" class="calc-btn">÷</button>
+        
+        <!-- Row 2 -->
+        <button onclick="insert('7')">7</button>
+        <button onclick="insert('8')">8</button>
+        <button onclick="insert('9')">9</button>
+        <button onclick="insert('*')" class="calc-btn">×</button>
+        <button onclick="sqrt()" class="func-btn">√</button>
+        
+        <!-- Row 3 -->
+        <button onclick="insert('4')">4</button>
+        <button onclick="insert('5')">5</button>
+        <button onclick="insert('6')">6</button>
+        <button onclick="power()" class="func-btn">x²</button>
+        <button onclick="insert('-')">−</button>
+        
+        <!-- Row 4 -->
+        <button onclick="insert('1')">1</button>
+        <button onclick="insert('2')">2</button>
+        <button onclick="insert('3')">3</button>
+        <button onclick="insert('+')">+</button>
+        <button onclick="pi()" class="func-btn">π</button>
+        
+        <!-- Row 5 - Scientific Functions -->
+        <button onclick="sin()" class="trig-btn">sin</button>
+        <button onclick="cos()" class="trig-btn">cos</button>
+        <button onclick="tan()" class="trig-btn">tan</button>
+        <button onclick="log()" class="func-btn">log</button>
+        <button onclick="ln()" class="func-btn">ln</button>
+        
+        <!-- Row 6 - Advanced Functions -->
+        <button onclick="exp()" class="func-btn">eˣ</button>
+        <button onclick="powerN()" class="func-btn">xʸ</button>
+        <button onclick="factorial()" class="func-btn">n!</button>
+        <button onclick="inverse()" class="func-btn">1/x</button>
+        <button class="equal" onclick="calculate()">=</button>
+        
+        <!-- Row 7 - Calculus Functions -->
+        <button onclick="differentiate()" style="background:#b91c1c;">d/dx</button>
+        <button onclick="integrate()" style="background:#b91c1c;">∫dx</button>
+        <button onclick="insert('0')">0</button>
+        <button onclick="insert('.')">.</button>
+        <button onclick="abs()" class="func-btn">|x|</button>
+    </div>
+    
+    <div class="result-panel" id="resultPanel">
+        💡 Tip: Use d/dx to differentiate expressions like x^2+2x+1 | ∫dx to integrate
+    </div>
 </div>
 
 <script>
-
-let display=document.getElementById("display");
-
-function insert(value){
-display.value+=value;
-}
-
-function clearDisplay(){
-display.value="";
-}
-
-function deleteLast(){
-display.value=display.value.slice(0,-1);
-}
-
-function calculate(){
-try{
-display.value=eval(display.value);
-}
-catch{
-display.value="Error";
-}
-}
-
-function sqrt(){
-display.value=Math.sqrt(display.value);
-}
-
-function power(){
-display.value=Math.pow(display.value,2);
-}
-
-function sin(){
-display.value=Math.sin(display.value);
-}
-
-function cos(){
-display.value=Math.cos(display.value);
-}
-
-function tan(){
-display.value=Math.tan(display.value);
-}
-
-function log(){
-display.value=Math.log10(display.value);
-}
-
-function pi(){
-display.value+=Math.PI;
-}
-
+    let display = document.getElementById("display");
+    let currentMode = "deg"; // deg or rad
+    let lastResult = null;
+    let lastExpression = null;
+    
+    // Mode buttons
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentMode = btn.dataset.mode;
+            showMessage(`Mode switched to ${currentMode.toUpperCase()}`);
+        });
+    });
+    
+    function showMessage(msg) {
+        const panel = document.getElementById('resultPanel');
+        panel.innerHTML = `💡 ${msg}`;
+        setTimeout(() => {
+            if (panel.innerHTML === `💡 ${msg}`) {
+                panel.innerHTML = `💡 Tip: Use d/dx to differentiate expressions like x^2+2x+1 | ∫dx to integrate`;
+            }
+        }, 3000);
+    }
+    
+    function insert(value) {
+        display.value += value;
+    }
+    
+    function clearDisplay() {
+        display.value = "";
+    }
+    
+    function deleteLast() {
+        display.value = display.value.slice(0, -1);
+    }
+    
+    function toRadians(degrees) {
+        return degrees * Math.PI / 180;
+    }
+    
+    function toDegrees(radians) {
+        return radians * 180 / Math.PI;
+    }
+    
+    // Basic Math Functions
+    function sqrt() {
+        try {
+            let val = evaluateExpression(display.value);
+            display.value = Math.sqrt(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function power() {
+        try {
+            let val = evaluateExpression(display.value);
+            display.value = Math.pow(val, 2);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function powerN() {
+        display.value += "^";
+    }
+    
+    function factorial() {
+        try {
+            let n = evaluateExpression(display.value);
+            if (n < 0 || !Number.isInteger(n)) {
+                display.value = "Error (non-negative integer)";
+                return;
+            }
+            let result = 1;
+            for (let i = 2; i <= n; i++) result *= i;
+            display.value = result;
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function inverse() {
+        try {
+            let val = evaluateExpression(display.value);
+            display.value = 1 / val;
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function abs() {
+        try {
+            let val = evaluateExpression(display.value);
+            display.value = Math.abs(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function exp() {
+        try {
+            let val = evaluateExpression(display.value);
+            display.value = Math.exp(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    // Trigonometric Functions
+    function sin() {
+        try {
+            let val = evaluateExpression(display.value);
+            if (currentMode === "deg") val = toRadians(val);
+            display.value = Math.sin(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function cos() {
+        try {
+            let val = evaluateExpression(display.value);
+            if (currentMode === "deg") val = toRadians(val);
+            display.value = Math.cos(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function tan() {
+        try {
+            let val = evaluateExpression(display.value);
+            if (currentMode === "deg") val = toRadians(val);
+            display.value = Math.tan(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    // Logarithmic Functions
+    function log() {
+        try {
+            let val = evaluateExpression(display.value);
+            display.value = Math.log10(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function ln() {
+        try {
+            let val = evaluateExpression(display.value);
+            display.value = Math.log(val);
+        } catch(e) {
+            display.value = "Error";
+        }
+    }
+    
+    function pi() {
+        display.value += Math.PI;
+    }
+    
+    // Evaluate expression safely
+    function evaluateExpression(expr) {
+        // Replace ^ with ** for power
+        expr = expr.replace(/\^/g, '**');
+        // Handle π
+        expr = expr.replace(/π/g, Math.PI);
+        // Handle e
+        expr = expr.replace(/e(?![a-z])/g, Math.E);
+        
+        // Use Function constructor for safe evaluation
+        try {
+            const result = new Function('return (' + expr + ')')();
+            if (isNaN(result) || !isFinite(result)) throw new Error();
+            return result;
+        } catch(e) {
+            throw new Error('Invalid expression');
+        }
+    }
+    
+    function calculate() {
+        try {
+            let expr = display.value;
+            // Replace ^ with ** for power
+            expr = expr.replace(/\^/g, '**');
+            // Handle π
+            expr = expr.replace(/π/g, Math.PI);
+            // Handle e
+            expr = expr.replace(/e(?![a-z])/g, Math.E);
+            
+            const result = new Function('return (' + expr + ')')();
+            
+            if (isNaN(result) || !isFinite(result)) {
+                display.value = "Error";
+            } else {
+                lastResult = result;
+                lastExpression = expr;
+                display.value = result;
+                showMessage(`Result: ${result.toFixed(6)}`);
+            }
+        } catch(e) {
+            display.value = "Error";
+            showMessage("Invalid expression");
+        }
+    }
+    
+    // ========== DIFFERENTIATION FUNCTION ==========
+    function differentiate() {
+        try {
+            let expr = display.value;
+            if (!expr || expr === "") {
+                showMessage("Enter an expression like: x^2+2*x+1");
+                return;
+            }
+            
+            // Replace ^ with ** for JavaScript
+            let jsExpr = expr.replace(/\^/g, '**');
+            
+            // Parse the expression
+            const h = 1e-6;
+            
+            // Create a function from the expression
+            const fn = new Function('x', 'return ' + jsExpr);
+            
+            // Test if the expression contains x
+            try {
+                fn(1);
+            } catch(e) {
+                showMessage("Expression must contain 'x' variable. Example: x^2+2*x+1");
+                return;
+            }
+            
+            // Compute derivative at a point
+            let x = 0;
+            let derivative;
+            
+            try {
+                derivative = (fn(x + h) - fn(x - h)) / (2 * h);
+            } catch(e) {
+                showMessage("Error computing derivative");
+                return;
+            }
+            
+            display.value = derivative;
+            showMessage(`d/dx(${expr}) at x=0 = ${derivative.toFixed(6)}`);
+            
+        } catch(e) {
+            display.value = "Error";
+            showMessage("Use 'x' as variable. Example: x^2+2*x+1");
+        }
+    }
+    
+    // ========== INTEGRATION FUNCTION ==========
+    function integrate() {
+        try {
+            let expr = display.value;
+            if (!expr || expr === "") {
+                showMessage("Enter an expression like: x^2, sin(x), e^x");
+                return;
+            }
+            
+            // Parse expression
+            let jsExpr = expr.replace(/\^/g, '**');
+            jsExpr = jsExpr.replace(/π/g, Math.PI);
+            jsExpr = jsExpr.replace(/e(?![a-z])/g, Math.E);
+            
+            // Create function
+            const fn = new Function('x', 'return ' + jsExpr);
+            
+            // Test if expression contains x
+            try {
+                fn(1);
+            } catch(e) {
+                showMessage("Expression must contain 'x' variable. Example: x^2");
+                return;
+            }
+            
+            // Numerical integration using Simpson's Rule
+            // ∫ from a to b of f(x) dx
+            let a = 0;
+            let b = 1;
+            
+            // Try to parse bounds if provided (format: x^2 from 0 to 1)
+            const fromMatch = expr.match(/from\s+(-?\d+\.?\d*)/i);
+            const toMatch = expr.match(/to\s+(-?\d+\.?\d*)/i);
+            
+            if (fromMatch) a = parseFloat(fromMatch[1]);
+            if (toMatch) b = parseFloat(toMatch[1]);
+            
+            // If bounds not specified, ask user
+            if (!fromMatch && !toMatch) {
+                const bounds = prompt("Enter integration bounds (from a to b):\nExample: 0 to 1\n\nUsing default: 0 to 1", "0 to 1");
+                if (bounds) {
+                    const parts = bounds.split('to');
+                    if (parts.length === 2) {
+                        a = parseFloat(parts[0]);
+                        b = parseFloat(parts[1]);
+                    }
+                }
+            }
+            
+            // Simpson's Rule for numerical integration
+            const n = 1000; // number of intervals
+            const h = (b - a) / n;
+            let sum = fn(a) + fn(b);
+            
+            for (let i = 1; i < n; i++) {
+                const x = a + i * h;
+                sum += i % 2 === 0 ? 2 * fn(x) : 4 * fn(x);
+            }
+            
+            const integral = (h / 3) * sum;
+            
+            display.value = integral;
+            showMessage(`∫${expr} dx from ${a} to ${b} = ${integral.toFixed(8)}`);
+            
+        } catch(e) {
+            display.value = "Error";
+            showMessage("Use 'x' as variable. Example: x^2, sin(x), e^x");
+        }
+    }
+    
+    // Handle keyboard input
+    document.addEventListener('keydown', (e) => {
+        const key = e.key;
+        
+        if (key >= '0' && key <= '9') {
+            insert(key);
+        } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+            insert(key);
+        } else if (key === '.') {
+            insert('.');
+        } else if (key === '(' || key === ')') {
+            insert(key);
+        } else if (key === 'Enter') {
+            calculate();
+        } else if (key === 'Escape') {
+            clearDisplay();
+        } else if (key === 'Backspace') {
+            deleteLast();
+        } else if (key === '^') {
+            insert('^');
+        }
+    });
+    
+    // Help message
+    console.log("Scientific Calculator with Calculus Functions");
+    console.log("Features: d/dx (differentiate) | ∫dx (integrate) | sin, cos, tan | log, ln | factorial, power, etc.");
 </script>
-
 </body>
-</html>
+  </html>
