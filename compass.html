@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Magnetic Compass | Real North Finder</title>
+<title>Ultra-Fast Digital Compass | Instant Response</title>
 <style>
     * {
         margin: 0;
@@ -29,13 +29,13 @@
         align-items: center;
         gap: 20px;
         width: 100%;
-        max-width: 450px;
+        max-width: 500px;
     }
 
     .compass-card {
-        background: rgba(20, 28, 40, 0.9);
+        background: rgba(20, 28, 40, 0.95);
         backdrop-filter: blur(20px);
-        border-radius: 50px;
+        border-radius: 60px;
         padding: 20px;
         box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -46,8 +46,9 @@
         position: relative;
         width: 100%;
         aspect-ratio: 1 / 1;
-        max-width: 350px;
+        max-width: 380px;
         margin: 0 auto;
+        cursor: pointer;
     }
 
     .compass-outer {
@@ -59,6 +60,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: transform 0.1s;
     }
 
     .compass-face {
@@ -76,7 +78,7 @@
         height: 100%;
         top: 0;
         left: 0;
-        transition: transform 0.1s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        transition: transform 0.05s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         will-change: transform;
     }
 
@@ -116,8 +118,8 @@
 
     .needle-center {
         position: absolute;
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         background: radial-gradient(circle, #ffdd99, #ccaa66);
         border-radius: 50%;
         top: 50%;
@@ -147,20 +149,20 @@
     .dir-label {
         position: absolute;
         font-weight: bold;
-        font-size: 20px;
+        font-size: 22px;
         text-shadow: 0 2px 4px black;
-        background: rgba(0,0,0,0.4);
-        padding: 4px 10px;
+        background: rgba(0,0,0,0.5);
+        padding: 4px 12px;
         border-radius: 30px;
         backdrop-filter: blur(4px);
     }
-    .n-label { top: 8%; left: 50%; transform: translateX(-50%); color: #ff8888; }
-    .e-label { top: 50%; right: 5%; transform: translateY(-50%); color: #88ffaa; }
-    .s-label { bottom: 8%; left: 50%; transform: translateX(-50%); color: #ffaa66; }
-    .w-label { top: 50%; left: 5%; transform: translateY(-50%); color: #88ffaa; }
+    .n-label { top: 6%; left: 50%; transform: translateX(-50%); color: #ff8888; }
+    .e-label { top: 50%; right: 3%; transform: translateY(-50%); color: #88ffaa; }
+    .s-label { bottom: 6%; left: 50%; transform: translateX(-50%); color: #ffaa66; }
+    .w-label { top: 50%; left: 3%; transform: translateY(-50%); color: #88ffaa; }
 
     .info-panel {
-        background: rgba(10, 20, 35, 0.9);
+        background: rgba(10, 20, 35, 0.95);
         backdrop-filter: blur(12px);
         border-radius: 40px;
         padding: 18px 24px;
@@ -170,7 +172,7 @@
     }
 
     .heading {
-        font-size: 52px;
+        font-size: 58px;
         font-weight: 800;
         font-family: monospace;
         background: linear-gradient(135deg, #fff, #88aaff);
@@ -180,44 +182,61 @@
     }
 
     .direction {
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 700;
         color: #ffaa66;
         margin-top: 5px;
         letter-spacing: 2px;
     }
 
-    .status {
-        font-size: 12px;
-        margin-top: 12px;
-        padding: 8px 12px;
-        background: rgba(0,0,0,0.5);
+    .mode-badge {
+        font-size: 11px;
+        margin-top: 10px;
+        padding: 6px 12px;
+        background: rgba(0,0,0,0.6);
         border-radius: 30px;
         display: inline-block;
-        color: #aaddff;
+        color: #88aaff;
+    }
+
+    .control-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
     }
 
     button {
         background: linear-gradient(135deg, #4a90e2, #2c5aa6);
         border: none;
-        padding: 14px 28px;
+        padding: 12px 24px;
         border-radius: 50px;
         color: white;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 14px;
         cursor: pointer;
-        width: 100%;
-        max-width: 280px;
         transition: transform 0.1s;
+        flex: 1;
+        min-width: 100px;
     }
 
     button:active {
-        transform: scale(0.98);
+        transform: scale(0.97);
+    }
+
+    .mode-btn {
+        background: linear-gradient(135deg, #6c5ce7, #4834d4);
+    }
+
+    .test-btn {
+        background: rgba(74, 144, 226, 0.5);
+        backdrop-filter: blur(4px);
     }
 
     .help-text {
         font-size: 12px;
-        color: #ffaa66;
+        color: #aaddff;
         background: rgba(0,0,0,0.5);
         padding: 12px;
         border-radius: 30px;
@@ -225,27 +244,29 @@
         line-height: 1.5;
     }
 
-    .test-controls {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .test-btn {
-        background: rgba(74, 144, 226, 0.3);
-        padding: 8px 16px;
-        font-size: 12px;
-        max-width: none;
-        width: auto;
-    }
-
     @media (max-width: 480px) {
-        .heading { font-size: 38px; }
-        .direction { font-size: 20px; }
-        .dir-label { font-size: 14px; padding: 2px 6px; }
-        .test-btn { padding: 6px 12px; font-size: 10px; }
+        .heading { font-size: 42px; }
+        .direction { font-size: 22px; }
+        .dir-label { font-size: 16px; padding: 2px 8px; }
+        button { padding: 10px 16px; font-size: 12px; }
+    }
+
+    /* Gyro indicator */
+    .gyro-indicator {
+        width: 100%;
+        height: 4px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 2px;
+        margin-top: 15px;
+        overflow: hidden;
+    }
+
+    .gyro-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #4a90e2, #88aaff);
+        width: 0%;
+        transition: width 0.3s;
+        border-radius: 2px;
     }
 </style>
 </head>
@@ -253,7 +274,7 @@
 
 <div class="compass-wrapper">
     <div class="compass-card">
-        <div class="compass-container">
+        <div class="compass-container" id="compassContainer">
             <div class="compass-outer">
                 <div class="compass-face">
                     <div class="compass-dial" id="compassDial">
@@ -276,20 +297,29 @@
     <div class="info-panel">
         <div class="heading" id="headingValue">0°</div>
         <div class="direction" id="directionValue">NORTH</div>
-        <div class="status" id="statusText">🎯 Tap button to start compass</div>
+        <div class="mode-badge" id="modeBadge">🎮 GYRO MODE - Move your device!</div>
+        <div class="gyro-indicator">
+            <div class="gyro-bar" id="gyroBar"></div>
+        </div>
     </div>
 
-    <button id="startCompassBtn">🧭 START COMPASS</button>
-    <div class="test-controls">
-        <button id="testNorthBtn" class="test-btn">⬆️ Test North</button>
-        <button id="testEastBtn" class="test-btn">➡️ Test East</button>
-        <button id="testSouthBtn" class="test-btn">⬇️ Test South</button>
-        <button id="testWestBtn" class="test-btn">⬅️ Test West</button>
+    <div class="control-buttons">
+        <button id="gyroModeBtn" class="mode-btn">🎮 GYRO MODE</button>
+        <button id="dragModeBtn" class="mode-btn">🖱️ DRAG MODE</button>
+        <button id="autoRotateBtn">🔄 AUTO ROTATE</button>
+    </div>
+    <div class="control-buttons">
+        <button id="testNorthBtn" class="test-btn">⬆️ N (0°)</button>
+        <button id="testEastBtn" class="test-btn">➡️ E (90°)</button>
+        <button id="testSouthBtn" class="test-btn">⬇️ S (180°)</button>
+        <button id="testWestBtn" class="test-btn">⬅️ W (270°)</button>
     </div>
     <div class="help-text" id="helpText">
-        💡 Click "START COMPASS" to activate<br>
-        📱 On iPhone: Allow motion access when prompted<br>
-        🖱️ On Computer: Use test buttons to see compass work
+        🚀 INSTANT RESPONSE! <br>
+        • GYRO MODE: Move/rotate your phone - compass moves instantly<br>
+        • DRAG MODE: Drag on compass to rotate manually<br>
+        • AUTO ROTATE: Automatic rotation demo<br>
+        • Test buttons: Jump to any direction instantly
     </div>
 </div>
 
@@ -298,19 +328,24 @@
     const compassDial = document.getElementById('compassDial');
     const headingValue = document.getElementById('headingValue');
     const directionValue = document.getElementById('directionValue');
-    const statusText = document.getElementById('statusText');
-    const startBtn = document.getElementById('startCompassBtn');
+    const modeBadge = document.getElementById('modeBadge');
+    const gyroBar = document.getElementById('gyroBar');
+    const compassContainer = document.getElementById('compassContainer');
     const helpText = document.getElementById('helpText');
-    const ticksContainer = document.getElementById('ticksContainer');
 
     let currentHeading = 0;
-    let isCompassActive = false;
+    let currentMode = 'gyro'; // gyro, drag, auto
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartHeading = 0;
+    let autoRotateAngle = 0;
+    let autoRotateInterval = null;
     let sensorActive = false;
-    let animationId = null;
 
     // Generate degree ticks
     function generateTicks() {
-        ticksContainer.innerHTML = '';
+        const container = document.getElementById('ticksContainer');
+        container.innerHTML = '';
         
         for (let deg = 0; deg < 360; deg += 10) {
             const isMajor = deg % 30 === 0;
@@ -343,14 +378,18 @@
                 tick.appendChild(num);
             }
             
-            ticksContainer.appendChild(tick);
+            container.appendChild(tick);
         }
     }
 
     // Update compass display
     function updateCompass(heading) {
         if (!compassDial) return;
-        // Rotate dial so North aligns with red needle
+        // Normalize heading
+        heading = heading % 360;
+        if (heading < 0) heading += 360;
+        
+        currentHeading = heading;
         compassDial.style.transform = `rotate(${-heading}deg)`;
         
         const rounded = Math.round(heading);
@@ -363,193 +402,254 @@
         
         const idx = Math.round((heading + 11.25) % 360 / 22.5);
         directionValue.textContent = fullNames[idx % 16];
+        
+        // Update gyro bar for visual feedback
+        const intensity = Math.abs(Math.sin(heading * Math.PI / 180));
+        gyroBar.style.width = `${intensity * 100}%`;
     }
 
-    // Set heading manually (for testing)
-    function setHeading(heading) {
-        currentHeading = heading % 360;
-        updateCompass(currentHeading);
-        if (!sensorActive) {
-            statusText.innerHTML = '🎮 Test mode - Compass showing ' + Math.round(heading) + '°';
+    // Set heading instantly
+    function setHeading(heading, source = 'manual') {
+        updateCompass(heading);
+        if (source === 'manual' && currentMode === 'gyro') {
+            // Still update but keep gyro mode
         }
     }
 
-    // Smooth heading update from sensors
-    let filteredHeading = null;
-    function updateHeading(newHeading) {
-        if (filteredHeading === null) {
-            filteredHeading = newHeading;
+    // GYRO MODE - Using DeviceOrientation
+    let lastGyroHeading = 0;
+    let gyroFiltered = null;
+    
+    function startGyroMode() {
+        currentMode = 'gyro';
+        modeBadge.innerHTML = '🎮 GYRO MODE - Move/rotate your device!';
+        modeBadge.style.background = 'rgba(100,200,100,0.3)';
+        helpText.innerHTML = '🎯 GYRO ACTIVE! Rotate your phone - compass responds INSTANTLY!';
+        
+        // Stop auto rotate
+        if (autoRotateInterval) {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = null;
+        }
+        
+        // Request permission if needed (iOS)
+        if (typeof DeviceOrientationEvent !== 'undefined' && 
+            typeof DeviceOrientationEvent.requestPermission === 'function') {
+            // iOS needs user gesture - show message
+            if (!sensorActive) {
+                helpText.innerHTML = '📱 Tap anywhere on compass to enable gyro sensors';
+                compassContainer.style.cursor = 'pointer';
+                compassContainer.onclick = async () => {
+                    try {
+                        const permission = await DeviceOrientationEvent.requestPermission();
+                        if (permission === 'granted') {
+                            window.addEventListener('deviceorientation', handleGyroData);
+                            sensorActive = true;
+                            helpText.innerHTML = '✅ GYRO ACTIVE! Rotate your phone to see compass move!';
+                            compassContainer.onclick = null;
+                        }
+                    } catch(e) {
+                        helpText.innerHTML = '⚠️ Permission needed. Please allow motion sensors.';
+                    }
+                };
+            }
         } else {
-            let diff = newHeading - filteredHeading;
-            if (diff > 180) diff -= 360;
-            if (diff < -180) diff += 360;
-            filteredHeading += diff * 0.4;
-            if (filteredHeading >= 360) filteredHeading -= 360;
-            if (filteredHeading < 0) filteredHeading += 360;
+            // Android / Others - add listener directly
+            if (!sensorActive) {
+                window.addEventListener('deviceorientation', handleGyroData);
+                sensorActive = true;
+                helpText.innerHTML = '✅ GYRO ACTIVE! Rotate your phone to see compass move!';
+            }
         }
-        updateCompass(filteredHeading);
-        return filteredHeading;
     }
-
-    // Device orientation handler
-    function handleOrientation(event) {
+    
+    function handleGyroData(event) {
         let heading = null;
         
         // iOS
         if (event.webkitCompassHeading !== undefined) {
             heading = event.webkitCompassHeading;
-            if (!sensorActive) {
-                sensorActive = true;
-                isCompassActive = true;
-                statusText.innerHTML = '✅ Compass ACTIVE! North is at the red needle';
-                statusText.style.background = 'rgba(100,200,100,0.3)';
-                helpText.innerHTML = '📍 The red needle points to MAGNETIC NORTH. Rotate your device!';
-            }
         }
-        // Android with absolute orientation
+        // Android absolute
         else if (event.absolute === true && event.alpha !== null) {
             heading = event.alpha;
-            if (!sensorActive) {
-                sensorActive = true;
-                isCompassActive = true;
-                statusText.innerHTML = '✅ Compass ACTIVE! North is at the red needle';
-                statusText.style.background = 'rgba(100,200,100,0.3)';
-                helpText.innerHTML = '📍 The red needle points to NORTH. Rotate your device!';
-            }
         }
         
         if (heading !== null && !isNaN(heading)) {
             heading = heading % 360;
             if (heading < 0) heading += 360;
-            updateHeading(heading);
-        }
-    }
-
-    // Request permission and start compass (iOS)
-    async function startCompass() {
-        // Check if iOS
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        
-        if (isIOS && typeof DeviceOrientationEvent !== 'undefined' && 
-            typeof DeviceOrientationEvent.requestPermission === 'function') {
             
-            statusText.innerHTML = '📱 Requesting compass permission...';
-            helpText.innerHTML = 'Please tap "Allow" when prompted to enable compass';
-            
-            try {
-                const permission = await DeviceOrientationEvent.requestPermission();
-                if (permission === 'granted') {
-                    window.addEventListener('deviceorientation', handleOrientation);
-                    window.addEventListener('deviceorientationabsolute', handleOrientation);
-                    statusText.innerHTML = '✅ Compass enabled! Rotate your device';
-                    helpText.innerHTML = '🔄 The red needle points to NORTH. Move your device to see it work!';
-                } else {
-                    statusText.innerHTML = '❌ Permission denied. Cannot access compass.';
-                    helpText.innerHTML = 'To enable: Settings → Safari → Motion & Orientation → Allow, then refresh';
-                }
-            } catch (err) {
-                console.error(err);
-                statusText.innerHTML = '⚠️ Error requesting permission';
-                helpText.innerHTML = 'Please check device settings and try again';
+            // Smoothing for less jitter
+            if (gyroFiltered === null) {
+                gyroFiltered = heading;
+            } else {
+                let diff = heading - gyroFiltered;
+                if (diff > 180) diff -= 360;
+                if (diff < -180) diff += 360;
+                gyroFiltered += diff * 0.4;
+                if (gyroFiltered >= 360) gyroFiltered -= 360;
+                if (gyroFiltered < 0) gyroFiltered += 360;
             }
-        } 
-        // Android / Other
-        else if ('DeviceOrientationEvent' in window) {
-            window.addEventListener('deviceorientation', handleOrientation);
-            window.addEventListener('deviceorientationabsolute', handleOrientation);
-            statusText.innerHTML = '🧭 Compass starting... Rotate your device';
-            helpText.innerHTML = '🔄 Move your device in a figure-8 pattern to calibrate. The red needle points NORTH!';
-            
-            // Check if we get data after a few seconds
-            setTimeout(() => {
-                if (!sensorActive) {
-                    statusText.innerHTML = '⚠️ No sensor data yet. Try moving your device in a figure-8 pattern';
-                    helpText.innerHTML = '🔄 Move your phone in a figure-8 motion to activate the magnetometer';
-                }
-            }, 3000);
-        } 
-        else {
-            statusText.innerHTML = '❌ Device orientation not supported';
-            helpText.innerHTML = 'Your browser does not support compass sensors. Use test buttons below.';
+            updateCompass(gyroFiltered);
+            lastGyroHeading = heading;
+        }
+    }
+
+    // DRAG MODE - Drag on compass to rotate
+    function startDragMode() {
+        currentMode = 'drag';
+        modeBadge.innerHTML = '🖱️ DRAG MODE - Drag compass to rotate';
+        modeBadge.style.background = 'rgba(74,144,226,0.3)';
+        helpText.innerHTML = '👉 Drag your finger/mouse on the compass to rotate it instantly!';
+        
+        if (autoRotateInterval) {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = null;
         }
         
-        isCompassActive = true;
+        let startAngle = 0;
+        let startHeading = 0;
+        
+        const getAngleFromEvent = (e) => {
+            const rect = compassContainer.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            const dx = clientX - centerX;
+            const dy = clientY - centerY;
+            let angle = Math.atan2(dy, dx) * 180 / Math.PI;
+            angle = (angle + 90 + 360) % 360;
+            return angle;
+        };
+        
+        const onDragStart = (e) => {
+            e.preventDefault();
+            isDragging = true;
+            startAngle = getAngleFromEvent(e);
+            startHeading = currentHeading;
+            compassContainer.style.cursor = 'grabbing';
+        };
+        
+        const onDragMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const currentAngle = getAngleFromEvent(e);
+            let delta = currentAngle - startAngle;
+            let newHeading = (startHeading - delta + 360) % 360;
+            updateCompass(newHeading);
+        };
+        
+        const onDragEnd = () => {
+            isDragging = false;
+            compassContainer.style.cursor = 'grab';
+        };
+        
+        compassContainer.style.cursor = 'grab';
+        compassContainer.addEventListener('mousedown', onDragStart);
+        window.addEventListener('mousemove', onDragMove);
+        window.addEventListener('mouseup', onDragEnd);
+        compassContainer.addEventListener('touchstart', onDragStart);
+        window.addEventListener('touchmove', onDragMove);
+        window.addEventListener('touchend', onDragEnd);
+        
+        // Store cleanup
+        window.dragCleanup = () => {
+            compassContainer.removeEventListener('mousedown', onDragStart);
+            window.removeEventListener('mousemove', onDragMove);
+            window.removeEventListener('mouseup', onDragEnd);
+            compassContainer.removeEventListener('touchstart', onDragStart);
+            window.removeEventListener('touchmove', onDragMove);
+            window.removeEventListener('touchend', onDragEnd);
+        };
     }
 
-    // Test buttons for desktop / troubleshooting
-    function setupTestButtons() {
-        document.getElementById('testNorthBtn').onclick = () => setHeading(0);
-        document.getElementById('testEastBtn').onclick = () => setHeading(90);
-        document.getElementById('testSouthBtn').onclick = () => setHeading(180);
-        document.getElementById('testWestBtn').onclick = () => setHeading(270);
-    }
-
-    // Create a manual rotation demo for desktop (shows compass moving)
-    let manualRotation = 0;
-    let isRotating = false;
-    
-    function startManualRotation() {
-        if (isRotating) return;
-        isRotating = true;
+    // AUTO ROTATE MODE
+    function startAutoRotate() {
+        currentMode = 'auto';
+        modeBadge.innerHTML = '🔄 AUTO ROTATE - Automatic rotation demo';
+        modeBadge.style.background = 'rgba(255,170,68,0.3)';
+        helpText.innerHTML = '🔄 Auto-rotating! Watch the compass spin smoothly.';
+        
+        if (autoRotateInterval) clearInterval(autoRotateInterval);
         
         let angle = 0;
-        const interval = setInterval(() => {
-            if (!sensorActive && isCompassActive) {
-                angle = (angle + 5) % 360;
-                setHeading(angle);
-            }
-        }, 50);
-        
-        // Stop after 10 seconds if no sensor
-        setTimeout(() => {
-            if (!sensorActive) {
-                clearInterval(interval);
-                isRotating = false;
-            }
-        }, 10000);
+        autoRotateInterval = setInterval(() => {
+            angle = (angle + 2) % 360;
+            updateCompass(angle);
+        }, 20);
     }
 
-    // Initialize
+    // Test buttons
+    function setupTestButtons() {
+        document.getElementById('testNorthBtn').onclick = () => {
+            if (autoRotateInterval) clearInterval(autoRotateInterval);
+            setHeading(0, 'manual');
+        };
+        document.getElementById('testEastBtn').onclick = () => {
+            if (autoRotateInterval) clearInterval(autoRotateInterval);
+            setHeading(90, 'manual');
+        };
+        document.getElementById('testSouthBtn').onclick = () => {
+            if (autoRotateInterval) clearInterval(autoRotateInterval);
+            setHeading(180, 'manual');
+        };
+        document.getElementById('testWestBtn').onclick = () => {
+            if (autoRotateInterval) clearInterval(autoRotateInterval);
+            setHeading(270, 'manual');
+        };
+    }
+
+    // Mode switchers
+    function setupModeButtons() {
+        document.getElementById('gyroModeBtn').onclick = () => {
+            if (window.dragCleanup) window.dragCleanup();
+            startGyroMode();
+        };
+        document.getElementById('dragModeBtn').onclick = () => {
+            if (window.dragCleanup) window.dragCleanup();
+            startDragMode();
+        };
+        document.getElementById('autoRotateBtn').onclick = () => {
+            if (window.dragCleanup) window.dragCleanup();
+            startAutoRotate();
+        };
+    }
+
+    // Fallback for devices without gyro - start with drag mode
     function init() {
         generateTicks();
         setupTestButtons();
+        setupModeButtons();
         updateCompass(0);
         
-        // Start button handler
-        startBtn.onclick = () => {
-            startCompass();
-            startManualRotation(); // This will animate the compass until sensors kick in
-        };
-        
-        // Auto-start on mobile (but with user gesture requirement)
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (isMobile) {
-            helpText.innerHTML = '📱 Tap "START COMPASS" and allow permission when prompted';
+        // Check if device has gyro
+        if (!window.DeviceOrientationEvent) {
+            helpText.innerHTML = '⚠️ No gyro detected. Using DRAG MODE - drag the compass!';
+            startDragMode();
         } else {
-            helpText.innerHTML = '💻 Desktop mode: Use test buttons to see compass work, or click START and move mouse';
-            // Add mouse tracking for desktop
-            window.addEventListener('mousemove', (e) => {
-                if (!sensorActive && isCompassActive) {
-                    const angle = (e.clientX / window.innerWidth) * 360;
-                    setHeading(angle);
-                }
-            });
+            // Start with gyro mode but show instructions
+            startGyroMode();
         }
     }
 
-    // Animation loop
+    // Animation for smooth rendering
     function animate() {
-        animationId = requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
     }
     animate();
     
     init();
     
-    window.addEventListener('beforeunload', () => {
-        if (animationId) cancelAnimationFrame(animationId);
-    });
-    
-    console.log('Compass ready - Click START COMPASS to begin');
+    console.log('🚀 Ultra-fast compass ready! Use GYRO MODE for instant response!');
 </script>
 </body>
    </html>
