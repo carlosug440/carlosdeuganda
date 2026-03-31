@@ -2,109 +2,628 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Digital Compass</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Professional Digital Compass | True North Finder</title>
 <style>
-body, html {
-  margin:0;
-  padding:0;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: linear-gradient(to bottom, #1a1a1a, #333);
-  font-family: Arial, sans-serif;
-  color:white;
-}
-.compass-container {
-  position: relative;
-  width: 350px;
-  height: 350px;
-}
-.compass {
-  width: 100%;
-  height: 100%;
-  border: 6px solid white;
-  border-radius: 50%;
-  position: relative;
-  box-shadow: 0 0 30px rgba(255,255,255,0.5);
-}
-.needle {
-  width: 6px;
-  height: 160px;
-  background: red;
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform-origin: bottom center;
-  transform: rotate(0deg);
-  transition: transform 0.3s ease-out;
-  border-radius: 3px;
-}
-.direction {
-  position: absolute;
-  font-weight: bold;
-  font-size: 20px;
-  text-shadow: 0 0 5px black;
-}
-.north {top:10px; left:50%; transform: translateX(-50%);}
-.east {top:50%; right:10px; transform: translateY(-50%);}
-.south {bottom:10px; left:50%; transform: translateX(-50%);}
-.west {top:50%; left:10px; transform: translateY(-50%);}
-.degree {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 26px;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        min-height: 100vh;
+        background: linear-gradient(145deg, #0a0f1e 0%, #0c1222 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Main Container */
+    .compass-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Compass Card */
+    .compass-card {
+        background: rgba(20, 28, 40, 0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 50px;
+        padding: 25px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .compass-container {
+        position: relative;
+        width: min(85vw, 85vh, 380px);
+        height: min(85vw, 85vh, 380px);
+        margin: 0 auto;
+    }
+
+    /* Compass Outer Ring */
+    .compass-outer {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2a3348, #1a1f2e);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .compass-face {
+        width: 94%;
+        height: 94%;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #1e2a3a, #0f1420);
+        position: relative;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+    }
+
+    /* Rotating Dial (shows directions) */
+    .compass-dial {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        will-change: transform;
+    }
+
+    /* Direction Markers on Dial */
+    .dial-marker {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .direction-text {
+        position: absolute;
+        font-weight: 800;
+        font-size: clamp(14px, 5vw, 22px);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        letter-spacing: 1px;
+    }
+
+    .north-text { top: 12%; left: 50%; transform: translateX(-50%); color: #ff6b6b; }
+    .east-text { top: 50%; right: 8%; transform: translateY(-50%); color: #4ecdc4; }
+    .south-text { bottom: 12%; left: 50%; transform: translateX(-50%); color: #ffe66d; }
+    .west-text { top: 50%; left: 8%; transform: translateY(-50%); color: #4ecdc4; }
+
+    /* Degree Markers (small ticks) */
+    .degree-tick {
+        position: absolute;
+        width: 2px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        top: 0;
+        left: 50%;
+        transform-origin: bottom center;
+    }
+
+    .major-tick {
+        height: 18px;
+        width: 3px;
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Needle (Fixed, points to top = North reference) */
+    .needle-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    .needle {
+        position: relative;
+        width: 8px;
+        height: 45%;
+        background: linear-gradient(180deg, #ff4444 0%, #cc0000 100%);
+        border-radius: 8px;
+        transform-origin: bottom center;
+        margin-top: -45%;
+        box-shadow: 0 0 8px rgba(255, 68, 68, 0.8);
+        z-index: 11;
+    }
+
+    .needle::before {
+        content: "▼";
+        position: absolute;
+        top: -22px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #ff4444;
+        font-size: 20px;
+        text-shadow: 0 0 5px rgba(255,68,68,0.5);
+    }
+
+    .needle-center {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background: radial-gradient(circle, #ffdd99, #ccaa66);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.3);
+        z-index: 12;
+        border: 2px solid rgba(255,215,0,0.5);
+    }
+
+    /* North Indicator (Fixed reference) */
+    .north-indicator {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ff4444;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 10px rgba(255,68,68,0.3);
+        z-index: 15;
+        white-space: nowrap;
+    }
+
+    /* Info Panel */
+    .info-panel {
+        background: rgba(10, 20, 30, 0.85);
+        backdrop-filter: blur(12px);
+        border-radius: 40px;
+        padding: 18px 28px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        min-width: 240px;
+    }
+
+    .heading {
+        font-size: 48px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, #fff, #aaa);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1;
+    }
+
+    .direction-name {
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: 8px;
+        color: #ffaa66;
+    }
+
+    .accuracy {
+        font-size: 12px;
+        margin-top: 10px;
+        color: #88aaff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .sensor-status {
+        font-size: 11px;
+        color: #88aacc;
+        margin-top: 8px;
+        padding: 4px 12px;
+        background: rgba(0,0,0,0.4);
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    /* Permission Button */
+    .permission-btn {
+        background: linear-gradient(135deg, #4a90e2, #2c5aa6);
+        border: none;
+        padding: 12px 28px;
+        border-radius: 40px;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin-top: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .permission-btn:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 18px rgba(74,144,226,0.4);
+    }
+
+    /* Fallback Instructions */
+    .fallback-note {
+        background: rgba(0,0,0,0.6);
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 12px;
+        color: #ffaa66;
+        text-align: center;
+        max-width: 280px;
+    }
+
+    /* Animation */
+    @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+
+    .calibrating {
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+        .heading { font-size: 36px; }
+        .direction-name { font-size: 20px; }
+        .info-panel { padding: 12px 20px; }
+        .north-indicator { font-size: 10px; top: -12px; }
+    }
 </style>
 </head>
 <body>
 
-<div>
-  <div class="compass-container">
-    <div class="compass">
-      <div class="needle" id="needle"></div>
-      <div class="direction north">N</div>
-      <div class="direction east">E</div>
-      <div class="direction south">S</div>
-      <div class="direction west">W</div>
+<div class="compass-wrapper">
+    <div class="compass-card">
+        <div class="compass-container">
+            <div class="compass-outer">
+                <div class="compass-face">
+                    <!-- Rotating Dial (shows directions) -->
+                    <div class="compass-dial" id="compassDial">
+                        <!-- Dynamic degree ticks will be inserted here -->
+                        <div class="dial-marker">
+                            <div class="direction-text north-text">N</div>
+                            <div class="direction-text east-text">E</div>
+                            <div class="direction-text south-text">S</div>
+                            <div class="direction-text west-text">W</div>
+                        </div>
+                    </div>
+                    <!-- Fixed Needle (always points to top, dial rotates under it) -->
+                    <div class="needle-container">
+                        <div class="needle"></div>
+                        <div class="needle-center"></div>
+                    </div>
+                    <div class="north-indicator">⛊ NORTH</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="degree" id="degree">0°</div>
+
+    <div class="info-panel">
+        <div class="heading" id="headingDegrees">0°</div>
+        <div class="direction-name" id="directionName">North</div>
+        <div class="accuracy">
+            <span>🎯</span>
+            <span id="accuracyValue">Waiting for sensor...</span>
+        </div>
+        <div id="sensorStatus" class="sensor-status">📡 Initializing compass...</div>
+    </div>
+
+    <button class="permission-btn" id="requestPermissionBtn" style="display: none;">🔓 Enable Compass</button>
+    <div id="fallbackMessage" class="fallback-note" style="display: none;">
+        💡 On iOS, go to Settings > Safari > Motion & Orientation to enable compass access.
+    </div>
 </div>
 
 <script>
-const needle = document.getElementById("needle");
-const degreeDisplay = document.getElementById("degree");
-
-let currentAngle = 0;
-
-// Smooth rotation function
-function rotateTo(angle){
-  // Shortest path rotation
-  let delta = angle - currentAngle;
-  if(delta > 180) delta -= 360;
-  if(delta < -180) delta += 360;
-  currentAngle += delta;
-  needle.style.transform = `rotate(${currentAngle}deg)`;
-  degreeDisplay.innerText = `${Math.round(currentAngle)}°`;
-}
-
-// Device orientation for mobile
-if(window.DeviceOrientationEvent){
-  window.addEventListener('deviceorientation', function(event){
-    let alpha = event.alpha; // 0-360
-    if(alpha !== null) rotateTo(alpha);
-  }, true);
-}
-// Desktop fallback: use mouse movement to simulate rotation
-else{
-  window.addEventListener('mousemove', e=>{
-    let angle = (e.clientX / window.innerWidth) * 360;
-    rotateTo(angle);
-  });
-}
+    // Professional Compass that always points to Magnetic North
+    // Uses DeviceOrientationEvent with proper calibration for absolute heading
+    
+    let currentHeading = 0;         // Current heading in degrees (0 = North)
+    let isCalibrating = true;
+    let lastTimestamp = 0;
+    let smoothHeading = 0;
+    let alphaAvailable = false;
+    
+    const compassDial = document.getElementById('compassDial');
+    const headingDegreesEl = document.getElementById('headingDegrees');
+    const directionNameEl = document.getElementById('directionName');
+    const accuracySpan = document.getElementById('accuracyValue');
+    const sensorStatusEl = document.getElementById('sensorStatus');
+    const requestBtn = document.getElementById('requestPermissionBtn');
+    const fallbackMsg = document.getElementById('fallbackMessage');
+    
+    // Generate degree ticks on the dial (every 10 degrees)
+    function generateDegreeTicks() {
+        const dial = compassDial;
+        if (!dial) return;
+        
+        // Clear existing ticks except the main direction markers
+        const existingTicks = dial.querySelectorAll('.degree-tick');
+        existingTicks.forEach(tick => tick.remove());
+        
+        // Add ticks for every 10 degrees
+        for (let deg = 0; deg < 360; deg += 10) {
+            const isMajor = deg % 30 === 0;
+            const tick = document.createElement('div');
+            tick.className = `degree-tick ${isMajor ? 'major-tick' : ''}`;
+            
+            // Calculate position: rotate around center
+            const rad = (deg - 90) * Math.PI / 180; // -90 to align top as 0°
+            const radius = 46; // percentage of container
+            const x = 50 + radius * Math.cos(rad);
+            const y = 50 + radius * Math.sin(rad);
+            
+            tick.style.position = 'absolute';
+            tick.style.left = `${x}%`;
+            tick.style.top = `${y}%`;
+            tick.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
+            tick.style.width = isMajor ? '3px' : '2px';
+            tick.style.height = isMajor ? '18px' : '10px';
+            tick.style.background = isMajor ? 'rgba(255,200,100,0.9)' : 'rgba(255,255,255,0.4)';
+            tick.style.borderRadius = '2px';
+            
+            // Add number for major degrees
+            if (isMajor && deg !== 0 && deg !== 90 && deg !== 180 && deg !== 270) {
+                const num = document.createElement('span');
+                num.textContent = deg;
+                num.style.position = 'absolute';
+                num.style.left = '50%';
+                num.style.top = isMajor ? '22px' : '15px';
+                num.style.transform = 'translateX(-50%)';
+                num.style.fontSize = '9px';
+                num.style.color = '#aaa';
+                num.style.fontWeight = 'bold';
+                tick.appendChild(num);
+            }
+            
+            dial.appendChild(tick);
+        }
+    }
+    
+    // Update compass display based on current heading
+    function updateCompass(headingDegrees) {
+        // Smooth transition for dial rotation (dial rotates opposite to heading to show North at needle)
+        // Needle is fixed at top, so dial must rotate so that North aligns with needle when heading = 0
+        // Formula: dial rotation = -heading (so that North points to top)
+        const dialRotation = -headingDegrees;
+        
+        if (compassDial) {
+            compassDial.style.transform = `rotate(${dialRotation}deg)`;
+        }
+        
+        // Update heading display
+        const roundedHeading = Math.round(headingDegrees);
+        headingDegreesEl.textContent = `${roundedHeading}°`;
+        
+        // Determine cardinal direction
+        const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+        const idx = Math.round(((headingDegrees % 360) / 22.5)) % 16;
+        const cardinal = directions[idx];
+        
+        let fullName = '';
+        switch(cardinal) {
+            case 'N': fullName = 'North'; break;
+            case 'NNE': fullName = 'North-Northeast'; break;
+            case 'NE': fullName = 'Northeast'; break;
+            case 'ENE': fullName = 'East-Northeast'; break;
+            case 'E': fullName = 'East'; break;
+            case 'ESE': fullName = 'East-Southeast'; break;
+            case 'SE': fullName = 'Southeast'; break;
+            case 'SSE': fullName = 'South-Southeast'; break;
+            case 'S': fullName = 'South'; break;
+            case 'SSW': fullName = 'South-Southwest'; break;
+            case 'SW': fullName = 'Southwest'; break;
+            case 'WSW': fullName = 'West-Southwest'; break;
+            case 'W': fullName = 'West'; break;
+            case 'WNW': fullName = 'West-Northwest'; break;
+            case 'NW': fullName = 'Northwest'; break;
+            case 'NNW': fullName = 'North-Northwest'; break;
+            default: fullName = 'North';
+        }
+        
+        directionNameEl.textContent = fullName;
+    }
+    
+    // Smooth heading filter to reduce jitter
+    let filteredHeading = null;
+    function smoothHeadingUpdate(newHeading) {
+        if (filteredHeading === null) {
+            filteredHeading = newHeading;
+        } else {
+            // Weighted moving average for smoother rotation
+            let diff = newHeading - filteredHeading;
+            if (diff > 180) diff -= 360;
+            if (diff < -180) diff += 360;
+            filteredHeading += diff * 0.25; // Smoothing factor
+            if (filteredHeading >= 360) filteredHeading -= 360;
+            if (filteredHeading < 0) filteredHeading += 360;
+        }
+        updateCompass(filteredHeading);
+    }
+    
+    // Handle device orientation event (absolute heading)
+    function handleOrientation(event) {
+        // Use absolute orientation if available (webkitCompassHeading for iOS, alpha for Android)
+        let heading = null;
+        let accuracy = null;
+        
+        // iOS provides webkitCompassHeading (magnetic north) and webkitCompassAccuracy
+        if (event.webkitCompassHeading !== undefined) {
+            heading = event.webkitCompassHeading;
+            accuracy = event.webkitCompassAccuracy;
+            alphaAvailable = true;
+            
+            if (accuracy !== undefined && accuracy > 0) {
+                if (accuracy < 10) accuracySpan.textContent = 'Excellent';
+                else if (accuracy < 30) accuracySpan.textContent = 'Good';
+                else if (accuracy < 60) accuracySpan.textContent = 'Fair';
+                else accuracySpan.textContent = 'Low accuracy';
+            } else {
+                accuracySpan.textContent = 'Active';
+            }
+            sensorStatusEl.textContent = '🧭 Compass active (Magnetic North)';
+            sensorStatusEl.style.color = '#aaffaa';
+        } 
+        // Android / Standard DeviceOrientation with absolute flag
+        else if (event.absolute === true && event.alpha !== null) {
+            // Alpha is heading from North (0-360)
+            heading = event.alpha;
+            accuracy = event.alphaAccuracy;
+            alphaAvailable = true;
+            
+            if (accuracy !== undefined && accuracy > 0) {
+                accuracySpan.textContent = `Accuracy: ${Math.round(accuracy)}°`;
+            } else {
+                accuracySpan.textContent = 'Active';
+            }
+            sensorStatusEl.textContent = '🧭 Compass tracking North';
+            sensorStatusEl.style.color = '#aaffaa';
+        }
+        
+        if (heading !== null && !isNaN(heading)) {
+            isCalibrating = false;
+            // Apply smoothing to avoid jitter
+            smoothHeadingUpdate(heading);
+            document.querySelector('.compass-card').classList.remove('calibrating');
+        } else {
+            if (!isCalibrating) {
+                sensorStatusEl.textContent = '⚠️ Waiting for compass data...';
+                sensorStatusEl.style.color = '#ffaa66';
+            }
+        }
+    }
+    
+    // Request permission for iOS 13+ devices
+    function requestCompassPermission() {
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+            // iOS requires user gesture
+            requestBtn.style.display = 'block';
+            fallbackMsg.style.display = 'block';
+            sensorStatusEl.textContent = '📱 Tap "Enable Compass" to start';
+            
+            requestBtn.onclick = async () => {
+                try {
+                    const permissionState = await DeviceOrientationEvent.requestPermission();
+                    if (permissionState === 'granted') {
+                        window.addEventListener('deviceorientationabsolute', handleOrientation);
+                        window.addEventListener('deviceorientation', handleOrientation);
+                        requestBtn.style.display = 'none';
+                        sensorStatusEl.textContent = '✅ Compass enabled! Move your device.';
+                        sensorStatusEl.style.color = '#88ff88';
+                        fallbackMsg.style.display = 'none';
+                    } else {
+                        sensorStatusEl.textContent = '❌ Permission denied. Cannot access compass.';
+                    }
+                } catch (err) {
+                    console.error('Permission error:', err);
+                    sensorStatusEl.textContent = '⚠️ Permission error. Check settings.';
+                }
+            };
+        } else {
+            // Android / Desktop fallback
+            requestBtn.style.display = 'none';
+            fallbackMsg.style.display = 'none';
+            window.addEventListener('deviceorientationabsolute', handleOrientation);
+            window.addEventListener('deviceorientation', handleOrientation);
+            sensorStatusEl.textContent = '🧭 Compass active - point North!';
+            
+            // For desktops without orientation, simulate random? But better to show fallback demo
+            if (!window.DeviceOrientationEvent) {
+                sensorStatusEl.textContent = '💻 Desktop mode: Simulated rotation (move mouse)';
+                simulateDesktopCompass();
+            }
+        }
+    }
+    
+    // Desktop fallback simulation for testing (always points to north using mouse)
+    let desktopMode = false;
+    function simulateDesktopCompass() {
+        desktopMode = true;
+        sensorStatusEl.textContent = '🖥️ Desktop demo: Move mouse to rotate (simulated north)';
+        let simulatedAngle = 0;
+        window.addEventListener('mousemove', (e) => {
+            simulatedAngle = (e.clientX / window.innerWidth) * 360;
+            smoothHeadingUpdate(simulatedAngle);
+            accuracySpan.textContent = 'Demo mode';
+        });
+        
+        // Also allow touch for mobile testing
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches[0]) {
+                simulatedAngle = (e.touches[0].clientX / window.innerWidth) * 360;
+                smoothHeadingUpdate(simulatedAngle);
+            }
+        });
+    }
+    
+    // Also listen for deviceorientationabsolute for better Android support
+    if ('DeviceOrientationEvent' in window) {
+        // Check if absolute is needed
+        requestCompassPermission();
+    } else {
+        // Fallback
+        document.querySelector('.info-panel').innerHTML += '<div style="margin-top:10px;font-size:12px;">⚠️ Device orientation not supported</div>';
+        simulateDesktopCompass();
+    }
+    
+    // Additional fallback: if after 5 seconds no compass data, show hint
+    setTimeout(() => {
+        if (!alphaAvailable && !desktopMode) {
+            if (sensorStatusEl.innerText.includes('Initializing') || sensorStatusEl.innerText.includes('Waiting')) {
+                sensorStatusEl.innerHTML = '🔄 If compass not working:<br>• On iPhone: Enable "Motion & Orientation" in Settings > Safari<br>• On Android: Grant permissions & calibrate by moving in figure-8';
+                fallbackMsg.style.display = 'block';
+            }
+        }
+    }, 4000);
+    
+    // Initialize degree ticks
+    generateDegreeTicks();
+    
+    // Start with a small animation to show readiness
+    setTimeout(() => {
+        if (!alphaAvailable && !desktopMode) {
+            // Try alternative: use deviceorientation (non-absolute) for relative rotation? Not accurate for north.
+            // But provide manual calibration hint
+            sensorStatusEl.innerHTML = '📌 Calibrate: Rotate your device in a figure-8 pattern';
+        }
+    }, 2000);
+    
+    // Add touch feedback
+    let touchStartX = 0;
+    document.body.addEventListener('touchstart', (e) => {
+        // Just for iOS to ensure active state
+        if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) {
+            // Already handled
+        }
+    });
+    
+    // Log that compass is ready
+    console.log('Professional Compass initialized - Points to Magnetic North');
 </script>
-
 </body>
-  </html>
+                                                                     </html>
