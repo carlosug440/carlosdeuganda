@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Metric ↔ Imperial Converter</title>
+<style>
+body, html{
+  margin:0;
+  padding:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #1a1a1a, #222);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:100vh;
+  padding-top:50px;
+}
+.converter{
+  background:#333;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(255,255,255,0.3);
+  width:350px;
+}
+h2{text-align:center;margin-bottom:20px;}
+label{display:block;margin-top:10px;}
+input, select{
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  border-radius:6px;
+  border:none;
+}
+.result{
+  margin-top:20px;
+  font-size:18px;
+  text-align:center;
+  font-weight:bold;
+}
+button{
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  background:#ff4500;
+  color:white;
+  border:none;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+button:hover{background:#ff7733;}
+</style>
+</head>
+<body>
+
+<div class="converter">
+<h2>Metric ↔ Imperial Converter</h2>
+
+<label for="type">Select category:</label>
+<select id="type">
+  <option value="length">Length</option>
+  <option value="weight">Weight</option>
+  <option value="volume">Volume</option>
+  <option value="temperature">Temperature</option>
+</select>
+
+<label for="unit">Select unit:</label>
+<select id="unit"></select>
+
+<label for="input">Enter value:</label>
+<input type="number" id="input" placeholder="Enter value">
+
+<button id="convertBtn">Convert</button>
+
+<div class="result" id="result"></div>
+</div>
+
+<script>
+const typeSelect = document.getElementById('type');
+const unitSelect = document.getElementById('unit');
+const input = document.getElementById('input');
+const resultDiv = document.getElementById('result');
+const convertBtn = document.getElementById('convertBtn');
+
+// Define units
+const units = {
+  length:{
+    metric: ['m', 'cm', 'km'],
+    imperial: ['in', 'ft', 'yd', 'mi']
+  },
+  weight:{
+    metric: ['kg','g'],
+    imperial:['oz','lb','st']
+  },
+  volume:{
+    metric:['l','ml'],
+    imperial:['cup','pt','qt','gal']
+  },
+  temperature:{
+    metric:['°C'],
+    imperial:['°F']
+  }
+};
+
+// Conversion factors (to base metric)
+const conversions = {
+  length:{
+    m:{m:1, cm:100, km:0.001, in:39.3701, ft:3.28084, yd:1.09361, mi:0.000621371},
+    cm:{m:0.01, cm:1, km:0.00001, in:0.393701, ft:0.0328084, yd:0.0109361, mi:6.2137e-6},
+    km:{m:1000, cm:100000, km:1, in:39370.1, ft:3280.84, yd:1093.61, mi:0.621371},
+    in:{m:0.0254, cm:2.54, km:0.0000254, in:1, ft:0.0833333, yd:0.0277778, mi:1.5783e-5},
+    ft:{m:0.3048, cm:30.48, km:0.0003048, in:12, ft:1, yd:0.333333, mi:0.000189394},
+    yd:{m:0.9144, cm:91.44, km:0.0009144, in:36, ft:3, yd:1, mi:0.000568182},
+    mi:{m:1609.34, cm:160934, km:1.60934, in:63360, ft:5280, yd:1760, mi:1}
+  },
+  weight:{
+    kg:{kg:1,g:1000,oz:35.274,lb:2.20462,st:0.157473},
+    g:{kg:0.001,g:1,oz:0.035274,lb:0.00220462,st:0.000157473},
+    oz:{kg:0.0283495,g:28.3495,oz:1,lb:0.0625,st:0.00892857},
+    lb:{kg:0.453592,g:453.592,oz:16,lb:1,st:0.142857},
+    st:{kg:6.35029,g:6350.29,oz:224,lb:14,st:1}
+  },
+  volume:{
+    l:{l:1,ml:1000,cup:4.22675,pt:2.11338,qt:1.05669,gal:0.264172},
+    ml:{l:0.001,ml:1,cup:0.00422675,pt:0.00211338,qt:0.00105669,gal:0.000264172},
+    cup:{l:0.236588,ml:236.588,cup:1,pt:0.5,qt:0.25,gal:0.0625},
+    pt:{l:0.473176,ml:473.176,cup:2,pt:1,qt:0.5,gal:0.125},
+    qt:{l:0.946353,ml:946.353,cup:4,pt:2,qt:1,gal:0.25},
+    gal:{l:3.78541,ml:3785.41,cup:16,pt:8,qt:4,gal:1}
+  }
+};
+
+// Populate units dropdown based on type
+function updateUnits(){
+  const type = typeSelect.value;
+  unitSelect.innerHTML = '';
+  units[type].metric.concat(units[type].imperial).forEach(u=>{
+    const option = document.createElement('option');
+    option.value = u;
+    option.text = u;
+    unitSelect.appendChild(option);
+  });
+}
+
+typeSelect.addEventListener('change',updateUnits);
+updateUnits(); // initial populate
+
+// Convert function
+function convert(){
+  const type = typeSelect.value;
+  const unit = unitSelect.value;
+  const value = parseFloat(input.value);
+  if(isNaN(value)){resultDiv.innerText='Enter a number'; return;}
+  let output='';
+  
+  if(type==='temperature'){
+    if(unit==='°C') output = `${value} °C = ${(value*9/5+32).toFixed(2)} °F`;
+    else output = `${value} °F = ${((value-32)*5/9).toFixed(2)} °C`;
+  } else {
+    const factors = conversions[type][unit];
+    for(let target in factors){
+      if(target!==unit) output+=`${value} ${unit} = ${(value*factors[target]).toFixed(4)} ${target}\n`;
+    }
+  }
+  
+  resultDiv.innerText = output;
+}
+
+convertBtn.addEventListener('click',convert);
+</script>
+</body>
+</html>
