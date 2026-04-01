@@ -668,4 +668,168 @@
             }
             ctx.stroke();
             
-            showMessage(`Graph 
+            showMessage(`Graph plotted: f(x) = ${expr}`);
+        } catch(e) {
+            showMessage(`Error: ${e.message}. Use valid expression like x^2, sin(x), e^x`);
+        }
+    }
+    
+    function drawGrid() {
+        if (!showGrid) return;
+        
+        ctx.save();
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 0.5;
+        
+        // Vertical grid lines
+        const xStep = getNiceStep(xMax - xMin);
+        let xGrid = Math.ceil(xMin / xStep) * xStep;
+        while (xGrid <= xMax) {
+            const screenX = ((xGrid - xMin) / (xMax - xMin)) * width;
+            ctx.beginPath();
+            ctx.moveTo(screenX, 0);
+            ctx.lineTo(screenX, height);
+            ctx.stroke();
+            xGrid += xStep;
+        }
+        
+        // Horizontal grid lines
+        const yStep = getNiceStep(yMax - yMin);
+        let yGrid = Math.ceil(yMin / yStep) * yStep;
+        while (yGrid <= yMax) {
+            const screenY = height - ((yGrid - yMin) / (yMax - yMin)) * height;
+            ctx.beginPath();
+            ctx.moveTo(0, screenY);
+            ctx.lineTo(width, screenY);
+            ctx.stroke();
+            yGrid += yStep;
+        }
+        
+        ctx.restore();
+    }
+    
+    function drawAxes() {
+        ctx.save();
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.5;
+        
+        // X-axis
+        const yZero = height - ((0 - yMin) / (yMax - yMin)) * height;
+        if (yZero >= 0 && yZero <= height) {
+            ctx.beginPath();
+            ctx.moveTo(0, yZero);
+            ctx.lineTo(width, yZero);
+            ctx.stroke();
+            
+            // Arrow
+            ctx.beginPath();
+            ctx.moveTo(width - 10, yZero - 4);
+            ctx.lineTo(width, yZero);
+            ctx.lineTo(width - 10, yZero + 4);
+            ctx.fillStyle = '#94a3b8';
+            ctx.fill();
+        }
+        
+        // Y-axis
+        const xZero = ((0 - xMin) / (xMax - xMin)) * width;
+        if (xZero >= 0 && xZero <= width) {
+            ctx.beginPath();
+            ctx.moveTo(xZero, 0);
+            ctx.lineTo(xZero, height);
+            ctx.stroke();
+            
+            // Arrow
+            ctx.beginPath();
+            ctx.moveTo(xZero - 4, 10);
+            ctx.lineTo(xZero, 0);
+            ctx.lineTo(xZero + 4, 10);
+            ctx.fill();
+        }
+        
+        // Labels
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '10px Arial';
+        ctx.fillText('x', width - 10, yZero - 5);
+        ctx.fillText('y', xZero + 5, 15);
+        
+        ctx.restore();
+    }
+    
+    function getNiceStep(range) {
+        const roughStep = range / 8;
+        const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)));
+        const residual = roughStep / magnitude;
+        if (residual < 1.5) return magnitude;
+        if (residual < 3.5) return 2 * magnitude;
+        if (residual < 7.5) return 5 * magnitude;
+        return 10 * magnitude;
+    }
+    
+    function zoomIn() {
+        const centerX = (xMin + xMax) / 2;
+        const centerY = (yMin + yMax) / 2;
+        const newRange = (xMax - xMin) * 0.8;
+        xMin = centerX - newRange / 2;
+        xMax = centerX + newRange / 2;
+        yMin = centerY - newRange / 2;
+        yMax = centerY + newRange / 2;
+        plotGraph();
+    }
+    
+    function zoomOut() {
+        const centerX = (xMin + xMax) / 2;
+        const centerY = (yMin + yMax) / 2;
+        const newRange = (xMax - xMin) * 1.25;
+        xMin = centerX - newRange / 2;
+        xMax = centerX + newRange / 2;
+        yMin = centerY - newRange / 2;
+        yMax = centerY + newRange / 2;
+        plotGraph();
+    }
+    
+    function resetView() {
+        xMin = -5; xMax = 5;
+        yMin = -5; yMax = 5;
+        plotGraph();
+        showMessage("View reset to default (-5 to 5)");
+    }
+    
+    function toggleGrid() {
+        showGrid = !showGrid;
+        plotGraph();
+        showMessage(showGrid ? "Grid visible" : "Grid hidden");
+    }
+    
+    // Mouse hover coordinates
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mouseX = (e.clientX - rect.left) * scaleX;
+        const mouseY = (e.clientY - rect.top) * scaleY;
+        
+        const x = xMin + (mouseX / width) * (xMax - xMin);
+        const y = yMax - (mouseY / height) * (yMax - yMin);
+        
+        document.getElementById('coordDisplay').innerHTML = `📍 (${x.toFixed(3)}, ${y.toFixed(3)})`;
+    });
+    
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+        const key = e.key;
+        if (key >= '0' && key <= '9') insert(key);
+        else if (key === '+' || key === '-' || key === '*' || key === '/') insert(key);
+        else if (key === '.') insert('.');
+        else if (key === '(' || key === ')') insert(key);
+        else if (key === 'Enter') calculate();
+        else if (key === 'Escape') clearDisplay();
+        else if (key === 'Backspace') deleteLast();
+        else if (key === '^') insert('^');
+    });
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    plotGraph();
+</script>
+</body>
+               </html>  
